@@ -1,0 +1,15 @@
+# system
+.DS_Store
+Thumbs.db
+
+# IDE / edytory
+.vscode/
+.idea/
+
+# logi i pliki tymczasowe
+*.log
+*.tmp
+
+# pliki lokalne / konfiguracyjne
+.env
+config.local.php
