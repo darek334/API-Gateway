@@ -2,7 +2,7 @@
 
 ## Folder zawierający główne klasy importowane w innych miejscach
 
-* Znajduje się to główna klasa obsługująca zapytania do zdalnych adresów URL:
+* Znajduje się tu główna klasa obsługująca zapytania do zdalnych adresów URL:
 
 ## CurlInterface.php
 
