@@ -5,7 +5,8 @@ class DOM{
 		JSON: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_json_fetch/',
 		MySQL: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_mysql/'
 	};
-	
+
+	//Główny obiekt zawierający dane wprowadzone przez użytkownika
 	static Data = {
 		
 		Url: undefined,
