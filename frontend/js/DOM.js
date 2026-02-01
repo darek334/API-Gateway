@@ -2,7 +2,7 @@ class DOM{
 	
 	static UrlBase = {
 		
-		JSON: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_json_fetch/',
+		JSON: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_json/',
 		MySQL: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_mysql/'
 	};
 	
@@ -28,7 +28,7 @@ class DOM{
 	
 	static OptionTypes = {
 		
-		List : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+		List : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
 		
 		GET : {
 			
@@ -86,7 +86,7 @@ class DOM{
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
 								name : 'GET',
 								value : 'GET',
@@ -386,7 +386,7 @@ class DOM{
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
 								name : 'CURL_OPTION',
 								value : 'CURL_OPTION',
@@ -674,7 +674,7 @@ class DOM{
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
 								name : 'CURLOPT_HTTPHEADER',
 								value : 'CURLOPT_HTTPHEADER',
@@ -962,7 +962,7 @@ class DOM{
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
 								name : 'CURLOPT_POSTFIELDS',
 								value : 'CURLOPT_POSTFIELDS',
@@ -1282,7 +1282,7 @@ class DOM{
 									
 									Type : 'container',
 									TagName : 'select',
-									ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+									ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
 									PropertyList : ['name', 'value', 'title', 'classList' ],
 									name : 'CURLOPT_COOKIE',
 									value : 'CURLOPT_COOKIE',
@@ -2067,6 +2067,7 @@ class DOM{
 		return DOM.Data.DataType;
 	}
 	
+	//Nie ruszać !! Nawet jak zdziwmimy się warunkami w pętli, bo tak musi być !!
 	static prepareDOMData(){
 
 		if(DOM.Data.Url && DOM.Data.DataType && DOM.Data.DataMethod ){
@@ -2085,7 +2086,7 @@ class DOM{
 					
 					if(DOM.Data.Body[RowId ].isFullyInitialized() ){
 						
-						//Musi być to wszystko w tej pętli bo są warunki które zakończyły by przetwarzanie całego wiersza. A wiersz musi być CAŁY przetworzony
+						//Musi to wszystko być w tej pętli, bo są warunki, które zakończyłyby przetwarzanie całego wiersza. A wiersz musi być CAŁY przetworzony
 						for( const RowKey in DOM.Data.Body[RowId ] ){
 							
 							//sprawdzam czy jest już obiekt o nazwie OptionType=wartość
@@ -2127,14 +2128,12 @@ class DOM{
 		}
 		else{
 			
-			alert('Brak danych, aby wykonać zadanie !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
-			throw new Error('Brak danych, aby wykonać zadanie !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
+			alert('Brak danych !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
+			throw new Error('Brak danych !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
 		}
 	}
 	
 	static prepareRequest(){
-		
-		return DOM.prepareDOMData();
 	}
 	
 	
@@ -2305,27 +2304,28 @@ class DOM{
 		return true;
 	}
 	
-	/*nigdzie*/
+	/*??*/
 	static setHtmlElementValue(ElementId, String ){
 		
-		const Element = document.getElementById(ElementId );
+		if(typeof ElementId === 'string' && typeof String === 'string' ){
 		
-		if(Element ){
-			
-			if(typeof String === 'string' ){
-				
+			const Element = document.getElementById(ElementId );
+		
+			if(Element ){
+
 				Element.value = String;
 				return true;
 			}
 			else{
 				
-				throw new Error('Nie można ustawić wartości elementu, gdyż zmienna nie jest typu string !' );
+				throw new Error('Nie znaleziono elementu ! ElementId : '+ElementId );
 			}
 		}
 		else{
 				
-			throw new Error('Nie znaleziono elementu od podanym Id !\nWartość Id: '+ElementId );
+			throw new Error('Złe argumenty ! ElementId: '+ElementId+', String: '+String );
 		}
+		
 		return false;
 	}
 	
