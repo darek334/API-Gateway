@@ -4,4 +4,4 @@
 
 ## CurlInterface.php
 
-* Główny klasa obsługująca zapytania cURL. cURL to jest rozszerzenie PHP służące do zaptań HTTP.
+* Główne klasy obsługująca zapytania cURL. cURL to jest rozszerzenie PHP służące do zaptań HTTP.
