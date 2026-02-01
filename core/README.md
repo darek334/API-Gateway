@@ -1,9 +1,7 @@
 # Core
 
-## Folder zawierający główne klasy importowane w innych miejscach
-
-* Znajduje się tu główna klasa obsługująca zapytania do zdalnych adresów URL:
+## Klasy PHP
 
 ## CurlInterface.php
 
-* Główny silnik bramy API. Jest to tak zwany wrapper rozszerzenia PHP do komunikacji HTTP. Będzie on importowany we wszystkich podstronach projektu, obsługujących konkretne zapytania.
+* Główne klasy obsługująca zapytania cURL. cURL to jest rozszerzenie PHP służące do zaptań HTTP.

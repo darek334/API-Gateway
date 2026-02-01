@@ -2,7 +2,7 @@ class DOM{
 	
 	static UrlBase = {
 		
-		JSON: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_json/',
+		JSON: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_json_fetch/',
 		MySQL: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_mysql/'
 	};
 	
@@ -28,12 +28,12 @@ class DOM{
 	
 	static OptionTypes = {
 		
-		List : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+		List : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
 		
 		GET : {
 			
-			RowPropertyList : ['OptionType', 'Name', 'Value' ],
-			OptionType : {
+			RowPropertyList : ['GET', 'Name', 'Value' ],
+			GET : {
 				
 				DefaultDOM : 'GET'
 			},
@@ -70,23 +70,16 @@ class DOM{
 							
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'GET' ],
-							PropertyList : ['classList' ],
+							ChildList : ['GET' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Typ:',
 							classList : ['OptionLabel' ],
 							
-							Span : {
-								
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Typ:',
-								classList : ['SpanLabel' ]
-							},
 							GET : {
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
 								name : 'GET',
 								value : 'GET',
@@ -141,47 +134,23 @@ class DOM{
 								Action : {
 									
 									List : ['change' ],
-									Default : 'default',
-									default : function(RowId, HTMLObject ){
-
-										if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-
-											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
-										}
-										else{
-											
-											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
-											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
-										}
-										
-										return false;
-									},
 									change : function(RowId, HTMLObject ){
 
 										if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType ] ) ){
 											
-											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-												
-												DOM.htmlChangeRow(RowId, HTMLObject.value );
-												return true;
-											}
+											DOM.setOptionType(RowId, HTMLObject.value );
+											DOM.htmlChangeRow(RowId, HTMLObject.value );
 										}
 										else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
 											
-											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-												
-												DOM.htmlChangeRow(RowId, HTMLObject.value );
-												return true;
-											}
+											DOM.setOptionType(RowId, HTMLObject.value );
+											DOM.htmlChangeRow(RowId, HTMLObject.value );
 										}
 										else{
 											
 											//przywraca starą wartość
 											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
 										}
-										
-										return false;
 									}
 								}
 							}
@@ -190,18 +159,11 @@ class DOM{
 						
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'Name' ],
-							PropertyList : ['classList' ],
+							ChildList : ['Name' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Nazwa:',
 							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Nazwa:',
-								classList : ['SpanLabel' ]
-							},
 							Name : {
 								
 								Type : 'element',
@@ -221,15 +183,12 @@ class DOM{
 										if(DOM.setName(RowId, HTMLObject.value ) ){
 
 											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
 										}
 										else{
 
 											HTMLObject.value = '';
 											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 										}
-										
-										return false;
 									}
 								}
 							}
@@ -238,18 +197,11 @@ class DOM{
 						
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'Value' ],
-							PropertyList : ['classList' ],
-							classList : ['TextareaOptionLabel' ],
+							ChildList : ['Value' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Wartość:',
+							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Wartość:',
-								classList : ['SpanLabel' ]
-							},
 							Value : {
 								
 								Type : 'element',
@@ -269,15 +221,12 @@ class DOM{
 										if(DOM.setValue(RowId, HTMLObject.value ) ){
 
 											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
 										}
 										else{
 
 											HTMLObject.value = '';
 											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 										}
-
-										return false;
 									}
 								}
 							}
@@ -310,8 +259,6 @@ class DOM{
 									DOM.deleteDOMRow(RowId );
 									const RowDiv = document.getElementById(RowId );
 									RowDiv.remove();
-									
-									return true;
 								}
 							}
 						},
@@ -321,8 +268,8 @@ class DOM{
 		},
 		CURL_OPTION : {
 			
-			RowPropertyList : ['OptionType', 'Name', 'Value' ],
-			OptionType : {
+			RowPropertyList : ['CURL_OPTION', 'Name', 'Value' ],
+			CURL_OPTION : {
 				
 				DefaultDOM : 'CURL_OPTION'
 			},
@@ -370,23 +317,16 @@ class DOM{
 							
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'CURL_OPTION' ],
-							PropertyList : ['classList' ],
+							ChildList : ['CURL_OPTION' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Typ:',
 							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Typ:',
-								classList : ['SpanLabel' ]
-							},
 							CURL_OPTION : {
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
 								name : 'CURL_OPTION',
 								value : 'CURL_OPTION',
@@ -441,47 +381,23 @@ class DOM{
 								Action : {
 									
 									List : ['change' ],
-									Default : 'default',
-									default : function(RowId, HTMLObject ){
-
-										if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-
-											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
-										}
-										else{
-											
-											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
-											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
-										}
-										
-										return false;
-									},
 									change : function(RowId, HTMLObject ){
 
 										if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType ] ) ){
 											
-											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-												
-												DOM.htmlChangeRow(RowId, HTMLObject.value );
-												return true;
-											}
+											DOM.setOptionType(RowId, HTMLObject.value );
+											DOM.htmlChangeRow(RowId, HTMLObject.value );
 										}
 										else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
 											
-											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-												
-												DOM.htmlChangeRow(RowId, HTMLObject.value );
-												return true;
-											}
+											DOM.setOptionType(RowId, HTMLObject.value );
+											DOM.htmlChangeRow(RowId, HTMLObject.value );
 										}
 										else{
 											
 											//przywraca starą wartość
 											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
 										}
-
-										return false;
 									}
 								}
 							}
@@ -490,18 +406,11 @@ class DOM{
 						
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'Name' ],
-							PropertyList : ['classList' ],
+							ChildList : ['Name' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Nazwa:',
 							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Nazwa:',
-								classList : ['SpanLabel' ]
-							},
 							Name : {
 								
 								Type : 'element',
@@ -521,15 +430,12 @@ class DOM{
 										if(DOM.setName(RowId, HTMLObject.value ) ){
 
 											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
 										}
 										else{
 
 											HTMLObject.value = '';
 											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 										}
-										
-										return false;
 									}
 								}
 							}
@@ -538,18 +444,11 @@ class DOM{
 						
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'Value' ],
-							PropertyList : ['classList' ],
-							classList : ['TextareaOptionLabel' ],
+							ChildList : ['Value' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Wartość:',
+							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Wartość:',
-								classList : ['SpanLabel' ]
-							},
 							Value : {
 								
 								Type : 'element',
@@ -569,15 +468,12 @@ class DOM{
 										if(DOM.setValue(RowId, HTMLObject.value ) ){
 
 											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
 										}
 										else{
 
 											HTMLObject.value = '';
 											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 										}
-										
-										return false;
 									}
 								}
 							}
@@ -610,7 +506,6 @@ class DOM{
 									DOM.deleteDOMRow(RowId );
 									const RowDiv = document.getElementById(RowId );
 									RowDiv.remove();
-									return true;
 								}
 							}
 						}
@@ -620,8 +515,8 @@ class DOM{
 		},
 		CURLOPT_HTTPHEADER : {
 			
-			RowPropertyList : ['OptionType', 'Name', 'Value' ],
-			OptionType : {
+			RowPropertyList : ['CURLOPT_HTTPHEADER', 'Name', 'Value' ],
+			CURLOPT_HTTPHEADER : {
 				
 				DefaultDOM : 'CURLOPT_HTTPHEADER'
 			},
@@ -658,23 +553,16 @@ class DOM{
 							
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'CURLOPT_HTTPHEADER' ],
-							PropertyList : ['classList' ],
+							ChildList : ['CURLOPT_HTTPHEADER' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Typ:',
 							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Typ:',
-								classList : ['SpanLabel' ]
-							},
 							CURLOPT_HTTPHEADER : {
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
 								name : 'CURLOPT_HTTPHEADER',
 								value : 'CURLOPT_HTTPHEADER',
@@ -729,47 +617,23 @@ class DOM{
 								Action : {
 									
 									List : ['change' ],
-									Default : 'default',
-									default : function(RowId, HTMLObject ){
-
-										if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-
-											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
-										}
-										else{
-											
-											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
-											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
-										}
-										
-										return false;
-									},
 									change : function(RowId, HTMLObject ){
 
 										if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType ] ) ){
 											
-											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-												
-												DOM.htmlChangeRow(RowId, HTMLObject.value );
-												return true;
-											}
+											DOM.setOptionType(RowId, HTMLObject.value );
+											DOM.htmlChangeRow(RowId, HTMLObject.value );
 										}
 										else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
 											
-											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-												
-												DOM.htmlChangeRow(RowId, HTMLObject.value );
-												return true;
-											}
+											DOM.setOptionType(RowId, HTMLObject.value );
+											DOM.htmlChangeRow(RowId, HTMLObject.value );
 										}
 										else{
 											
 											//przywraca starą wartość
 											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
 										}
-
-										return false;
 									}
 								}
 							}
@@ -778,18 +642,11 @@ class DOM{
 						
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'Name' ],
-							PropertyList : ['classList' ],
+							ChildList : ['Name' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Nazwa:',
 							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Nazwa:',
-								classList : ['SpanLabel' ]
-							},
 							Name : {
 								
 								Type : 'element',
@@ -809,15 +666,12 @@ class DOM{
 										if(DOM.setName(RowId, HTMLObject.value ) ){
 
 											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
 										}
 										else{
 
 											HTMLObject.value = '';
 											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 										}
-										
-										return false;
 									}
 								}
 							}
@@ -826,18 +680,11 @@ class DOM{
 						
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'Value' ],
-							PropertyList : ['classList' ],
-							classList : ['TextareaOptionLabel' ],
+							ChildList : ['Value' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Wartość:',
+							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Wartość:',
-								classList : ['SpanLabel' ]
-							},
 							Value : {
 								
 								Type : 'element',
@@ -857,15 +704,12 @@ class DOM{
 										if(DOM.setValue(RowId, HTMLObject.value ) ){
 
 											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
 										}
 										else{
 
 											HTMLObject.value = '';
 											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 										}
-										
-										return false;
 									}
 								}
 							}
@@ -898,7 +742,6 @@ class DOM{
 									DOM.deleteDOMRow(RowId );
 									const RowDiv = document.getElementById(RowId );
 									RowDiv.remove();
-									return true;
 								}
 							}
 						}
@@ -908,8 +751,8 @@ class DOM{
 		},
 		CURLOPT_POSTFIELDS : {
 			
-			RowPropertyList : ['OptionType', 'Name', 'Value' ],
-			OptionType : {
+			RowPropertyList : ['CURLOPT_POSTFIELDS', 'Name', 'Value' ],
+			CURLOPT_POSTFIELDS : {
 				
 				DefaultDOM : 'CURLOPT_POSTFIELDS'
 			},
@@ -946,23 +789,16 @@ class DOM{
 							
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'CURLOPT_POSTFIELDS' ],
-							PropertyList : ['classList' ],
+							ChildList : ['CURLOPT_POSTFIELDS' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Typ:',
 							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Typ:',
-								classList : ['SpanLabel' ]
-							},
 							CURLOPT_POSTFIELDS : {
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
 								name : 'CURLOPT_POSTFIELDS',
 								value : 'CURLOPT_POSTFIELDS',
@@ -1017,47 +853,23 @@ class DOM{
 								Action : {
 									
 									List : ['change' ],
-									Default : 'default',
-									default : function(RowId, HTMLObject ){
-
-										if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-
-											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
-										}
-										else{
-											
-											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
-											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
-										}
-										
-										return false;
-									},
 									change : function(RowId, HTMLObject ){
 
 										if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType ] ) ){
 											
-											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-												
-												DOM.htmlChangeRow(RowId, HTMLObject.value );
-												return true;
-											}
+											DOM.setOptionType(RowId, HTMLObject.value );
+											DOM.htmlChangeRow(RowId, HTMLObject.value );
 										}
 										else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
 											
-											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-												
-												DOM.htmlChangeRow(RowId, HTMLObject.value );
-												return true;
-											}
+											DOM.setOptionType(RowId, HTMLObject.value );
+											DOM.htmlChangeRow(RowId, HTMLObject.value );
 										}
 										else{
 											
 											//przywraca starą wartość
 											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
 										}
-
-										return false;
 									}
 								}
 							}
@@ -1066,18 +878,11 @@ class DOM{
 						
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'Name' ],
-							PropertyList : ['classList' ],
+							ChildList : ['Name' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Nazwa:',
 							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Nazwa:',
-								classList : ['SpanLabel' ]
-							},
 							Name : {
 								
 								Type : 'element',
@@ -1097,15 +902,12 @@ class DOM{
 										if(DOM.setName(RowId, HTMLObject.value ) ){
 
 											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
 										}
 										else{
 
 											HTMLObject.value = '';
 											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 										}
-										
-										return false;
 									}
 								}
 							}
@@ -1114,18 +916,11 @@ class DOM{
 						
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'Value' ],
-							PropertyList : ['classList' ],
-							classList : ['TextareaOptionLabel' ],
+							ChildList : ['Value' ],
+							PropertyList : ['textContent', 'classList' ],
+							textContent : 'Wartość:',
+							classList : ['OptionLabel' ],
 							
-							Span : {
-	
-								Type : 'element',
-								TagName : 'span',
-								PropertyList : ['textContent', 'classList' ],
-								textContent : 'Wartość:',
-								classList : ['SpanLabel' ]
-							},
 							Value : {
 								
 								Type : 'element',
@@ -1145,15 +940,12 @@ class DOM{
 										if(DOM.setValue(RowId, HTMLObject.value ) ){
 
 											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-											return true;
 										}
 										else{
 
 											HTMLObject.value = '';
 											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 										}
-										
-										return false;
 									}
 								}
 							}
@@ -1186,7 +978,6 @@ class DOM{
 									DOM.deleteDOMRow(RowId );
 									const RowDiv = document.getElementById(RowId );
 									RowDiv.remove();
-									return true;
 								}
 							}
 						}
@@ -1196,8 +987,8 @@ class DOM{
 		},		
 		CURLOPT_COOKIE : {
 			
-			RowPropertyList : ['OptionType', 'Name', 'Value', 'Path', 'Expires', 'Domain', 'Secure', 'HttpOnly', 'SameSite' ],
-			OptionType : {
+			RowPropertyList : ['CURLOPT_COOKIE', 'Name', 'Value', 'Path', 'Expires', 'Domain', 'Secure', 'Httponly', 'Samesite' ],
+			CURLOPT_COOKIE : {
 				
 				DefaultDOM : 'CURLOPT_COOKIE'
 			},
@@ -1225,11 +1016,11 @@ class DOM{
 				
 				DefaultDOM : 'False'
 			},
-			HttpOnly : {
+			Httponly : {
 				
 				DefaultDOM : 'True'
 			},
-			SameSite : {
+			Samesite : {
 				
 				DefaultDOM : 'Lax'
 			},
@@ -1244,7 +1035,7 @@ class DOM{
 					TagName : 'div',
 					ChildList : ['Div1', 'Div2' ],
 					PropertyList : ['classList' ],
-					classList : ['MainOptionDiv' ],
+					classList : ['OptionsDiv' ],
 					
 					Div1 : {
 						
@@ -1252,7 +1043,7 @@ class DOM{
 						TagName : 'div',
 						ChildList : ['Div1', 'Div2', 'Div3' ],
 						PropertyList : ['classList' ],
-						classList : ['OptionRowsDiv' ],
+						classList : ['OptionsDiv' ],
 						
 						Div1 : {
 							
@@ -1266,23 +1057,16 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'CURLOPT_COOKIE' ],
-								PropertyList : ['classList' ],
+								ChildList : ['CURLOPT_COOKIE' ],
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Typ:',
 								classList : ['OptionLabel' ],
 								
-								Span : {
-	
-									Type : 'element',
-									TagName : 'span',
-									PropertyList : ['textContent', 'classList' ],
-									textContent : 'Typ:',
-									classList : ['SpanLabel' ]
-								},
 								CURLOPT_COOKIE : {
 									
 									Type : 'container',
 									TagName : 'select',
-									ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+									ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
 									PropertyList : ['name', 'value', 'title', 'classList' ],
 									name : 'CURLOPT_COOKIE',
 									value : 'CURLOPT_COOKIE',
@@ -1337,47 +1121,23 @@ class DOM{
 									Action : {
 										
 										List : ['change' ],
-										Default : 'default',
-										default : function(RowId, HTMLObject ){
-
-											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-
-												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
-											}
-											else{
-												
-												HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
-												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
-											}
-											
-											return false;
-										},
 										change : function(RowId, HTMLObject ){
 
-											if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType, 'Secure', 'HttpOnly', 'SameSite' ] ) ){
-											
-												if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-													
-													DOM.htmlChangeRow(RowId, HTMLObject.value );
-													return true;
-												}
+											if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType ] ) ){
+												
+												DOM.setOptionType(RowId, HTMLObject.value );
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
 											}
 											else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
 												
-												if(DOM.setOptionType(RowId, HTMLObject.value ) ){
-													
-													DOM.htmlChangeRow(RowId, HTMLObject.value );
-													return true;
-												}
+												DOM.setOptionType(RowId, HTMLObject.value );
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
 											}
 											else{
 												
 												//przywraca starą wartość
 												HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
 											}
-
-											return false;
 										}
 									}
 								}
@@ -1386,18 +1146,11 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'Name' ],
-								PropertyList : ['classList' ],
+								ChildList : ['Name' ],
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Nazwa:',
 								classList : ['OptionLabel' ],
 								
-								Span : {
-	
-									Type : 'element',
-									TagName : 'span',
-									PropertyList : ['textContent', 'classList' ],
-									textContent : 'Nazwa:',
-									classList : ['SpanLabel' ]
-								},
 								Name : {
 									
 									Type : 'element',
@@ -1417,15 +1170,12 @@ class DOM{
 											if(DOM.setName(RowId, HTMLObject.value ) ){
 
 												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
 											}
 											else{
 
 												HTMLObject.value = '';
 												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 											}
-											
-											return true;
 										}
 									}
 								}
@@ -1434,18 +1184,11 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'Value' ],
-								PropertyList : ['classList' ],
-								classList : ['TextareaOptionLabel' ],
+								ChildList : ['Value' ],
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Wartość:',
+								classList : ['OptionLabel' ],
 								
-								Span : {
-	
-									Type : 'element',
-									TagName : 'span',
-									PropertyList : ['textContent', 'classList' ],
-									textContent : 'Wartość:',
-									classList : ['SpanLabel' ]
-								},
 								Value : {
 									
 									Type : 'element',
@@ -1465,15 +1208,12 @@ class DOM{
 											if(DOM.setValue(RowId, HTMLObject.value ) ){
 
 												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
 											}
 											else{
 
 												HTMLObject.value = '';
 												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 											}
-											
-											return false;
 										}
 									}
 								}
@@ -1492,18 +1232,11 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'Path' ],
-								PropertyList : ['classList' ],
+								ChildList : ['Path' ],
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Path:',
 								classList : ['OptionLabel' ],
 								
-								Span : {
-	
-									Type : 'element',
-									TagName : 'span',
-									PropertyList : ['textContent', 'classList' ],
-									textContent : 'Path:',
-									classList : ['SpanLabel' ]
-								},
 								Path : {
 									
 									Type : 'element',
@@ -1523,15 +1256,12 @@ class DOM{
 											if(DOM.setCookiePath(RowId, HTMLObject.value ) ){
 
 												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
 											}
 											else{
 
 												HTMLObject.value = '';
 												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 											}
-											
-											return false;
 										}
 									}
 								}
@@ -1540,18 +1270,11 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'Expires' ],
-								PropertyList : ['classList' ],
+								ChildList : ['Expires' ],
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Czas:',
 								classList : ['OptionLabel' ],
 								
-								Span : {
-	
-									Type : 'element',
-									TagName : 'span',
-									PropertyList : ['textContent', 'classList' ],
-									textContent : 'Czas:',
-									classList : ['SpanLabel' ]
-								},
 								Expires : {
 									
 									Type : 'element',
@@ -1571,15 +1294,12 @@ class DOM{
 											if(DOM.setCookieExpires(RowId, HTMLObject.value ) ){
 
 												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
 											}
 											else{
 
 												HTMLObject.value = '';
 												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 											}
-											
-											return false;
 										}
 									}
 								}
@@ -1588,26 +1308,19 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'Domain' ],
-								PropertyList : ['classList' ],
-								classList : ['TextareaOptionLabel' ],
+								ChildList : ['Domain' ],
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Domena:',
+								classList : ['OptionLabel' ],
 								
-								Span : {
-	
-									Type : 'element',
-									TagName : 'span',
-									PropertyList : ['textContent', 'classList' ],
-									textContent : 'Domena:',
-									classList : ['SpanLabel' ]
-								},
 								Domain : {
 									
 									Type : 'element',
-									TagName : 'textarea',
-									PropertyList : ['name', 'value', 'rows', 'required', 'classList', 'title' ],
+									TagName : 'input',
+									PropertyList : ['name', 'value', 'size', 'required', 'classList', 'title' ],
 									name : 'Domain',
 									value : '',
-									rows : '1',
+									size : 20,
 									required : true,
 									classList : ['DomainOption' ],
 									title : 'Określa domenę, dla której ciasteczko jest dostępne. Brak domeny = tylko aktualny host. example.com udostępnia ciasteczko wszystkim subdomenom. Nie ustawiaj domeny z katalogami - to jest błąd - przeglądarki odrzucają takie ustawienia źródła( hosta )',
@@ -1619,15 +1332,12 @@ class DOM{
 											if(DOM.setCookieDomain(RowId, HTMLObject.value ) ){
 
 												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
 											}
 											else{
 
 												HTMLObject.value = '';
 												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 											}
-											
-											return false;
 										}
 									}
 								}
@@ -1646,18 +1356,11 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'Secure' ],
-								PropertyList : ['classList' ],
+								ChildList : ['Secure' ],
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Secure:',
 								classList : ['OptionLabel' ],
 								
-								Span : {
-	
-									Type : 'element',
-									TagName : 'span',
-									PropertyList : ['textContent', 'classList' ],
-									textContent : 'Secure:',
-									classList : ['SpanLabel' ]
-								},
 								Secure : {
 									
 									Type : 'container',
@@ -1690,36 +1393,17 @@ class DOM{
 									Action : {
 					
 										List : ['change' ],
-										Default : 'default',
-										default : function(RowId, HTMLObject ){
-
-											if(DOM.setCookieSecure(RowId, HTMLObject.value ) ){
-
-												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
-											}
-											else{
-												
-												HTMLObject.value = DOM.Data.Body[RowId ].Secure;
-												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
-											}
-											
-											return false;
-										},
 										change : function(RowId, HTMLObject ){
 
-											if(DOM.setCookieSecure(RowId, HTMLObject.value ) ){
+											if(DOM.setCookieSecure(RowId, HTMLObject.value === 'True'?true:false ) ){
 
 												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
 											}
 											else{
 
 												HTMLObject.value = DOM.Data.Body[RowId ].Secure;
 												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 											}
-											
-											return false;
 										}
 									}
 								}
@@ -1728,18 +1412,11 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'HttpOnly' ],
-								PropertyList : ['classList' ],
+								ChildList : ['HttpOnly' ],
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'HttpOnly:',
 								classList : ['OptionLabel' ],
 								
-								Span : {
-	
-									Type : 'element',
-									TagName : 'span',
-									PropertyList : ['textContent', 'classList' ],
-									textContent : 'HttpOnly:',
-									classList : ['SpanLabel' ]
-								},
 								HttpOnly : {
 									
 									Type : 'container',
@@ -1772,36 +1449,17 @@ class DOM{
 									Action : {
 					
 										List : ['change' ],
-										Default : 'default',
-										default : function(RowId, HTMLObject ){
-
-											if(DOM.setCookieHttponly(RowId, HTMLObject.value ) ){
-
-												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
-											}
-											else{
-												
-												HTMLObject.value = DOM.Data.Body[RowId ].HttpOnly;
-												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
-											}
-											
-											return false;
-										},
 										change : function(RowId, HTMLObject ){
 
-											if(DOM.setCookieHttponly(RowId, HTMLObject.value ) ){
+											if(DOM.setCookieHttponly(RowId, HTMLObject.value === 'True'?true:false ) ){
 
 												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
 											}
 											else{
 
-												HTMLObject.value = DOM.Data.Body[RowId ].HttpOnly;
+												HTMLObject.value = DOM.Data.Body[RowId ].Httponly;
 												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 											}
-											
-											return false;
 										}
 									}
 								}
@@ -1810,18 +1468,11 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'SameSite' ],
-								PropertyList : ['classList' ],
+								ChildList : ['SameSite' ],
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'SameSite:',
 								classList : ['OptionLabel' ],
 								
-								Span : {
-	
-									Type : 'element',
-									TagName : 'span',
-									PropertyList : ['textContent', 'classList' ],
-									textContent : 'SameSite:',
-									classList : ['SpanLabel' ]
-								},
 								SameSite : {
 									
 									Type : 'container',
@@ -1863,36 +1514,17 @@ class DOM{
 									Action : {
 										
 										List : ['change' ],
-										Default : 'default',
-										default : function(RowId, HTMLObject ){
-
-											if(DOM.setCookieSamesite(RowId, HTMLObject.value ) ){
-
-												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
-											}
-											else{
-												
-												HTMLObject.value = DOM.Data.Body[RowId ].SameSite;
-												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
-											}
-											
-											return false;
-										},
 										change : function(RowId, HTMLObject ){
 
 											if(DOM.setCookieSamesite(RowId, HTMLObject.value ) ){
 
 												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
-												return true;
 											}
 											else{
 
-												HTMLObject.value = DOM.Data.Body[RowId ].SameSite;
+												HTMLObject.value = DOM.Data.Body[RowId ].Samesite;
 												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
 											}
-											
-											return false;
 										}
 									}
 								}
@@ -1926,7 +1558,6 @@ class DOM{
 									DOM.deleteDOMRow(RowId );
 									const RowDiv = document.getElementById(RowId );
 									RowDiv.remove();
-									return true;
 								}
 							}
 						}
@@ -1961,14 +1592,9 @@ class DOM{
 							
 							HtmlElement.addEventListener(ActionName, function(){
 							
-								DOMObject.Action[ActionName ](RowId, this );
+								DOMObject.Action.ActionName(RowId, this );
 							} );
 						} );
-						
-						if(Object.hasOwn(DOMObject.Action, 'Default' ) ){
-							
-							DOMObject.Action[DOMObject.Action['Default' ] ](RowId, HtmlContainer );
-						}
 					}
 
 					return HtmlElement;
@@ -1976,11 +1602,6 @@ class DOM{
 				else if(DOMObject.Type === 'container' ){
 					
 					const HtmlContainer = document.createElement(DOMObject.TagName );
-					
-					DOMObject.ChildList.forEach((Child, index ) => {
-						
-						HtmlContainer.appendChild(DOM.OptionTypes.htmlCreateElement(RowId, DOMObject[Child ] ) );
-					} );
 					
 					DOMObject.PropertyList.forEach((PropertyName, index ) => {
 						
@@ -2000,15 +1621,15 @@ class DOM{
 							
 							HtmlContainer.addEventListener(ActionName, function(){
 							
-								DOMObject.Action[ActionName ](RowId, this );
+								DOMObject.Action.ActionName(RowId, this );
 							} );
 						} );
-						
-						if(Object.hasOwn(DOMObject.Action, 'Default' ) ){
-							
-							DOMObject.Action[DOMObject.Action['Default' ] ](RowId, HtmlContainer );
-						}
 					}
+					
+					DOMObject.ChildList.forEach((Child, index ) => {
+						
+						HtmlContainer.appendChild(DOM.OptionTypes.htmlCreateElement(RowId, DOMObject[Child ] ) );
+					} );
 					
 					return HtmlContainer;
 				}
@@ -2019,7 +1640,7 @@ class DOM{
 			}
 			else{
 
-				throw new Error('Nieprawidłowe argumenty ! RowId: '+RowId+', DOMObject: '+DOMObject );
+				throw new Error('Złe argumenty ! RowId: '+RowId+', DOMObject: '+DOMObject );
 			}
 		}
 	};
@@ -2067,7 +1688,6 @@ class DOM{
 		return DOM.Data.DataType;
 	}
 	
-	//Nie ruszać !! Nawet jak zdziwmimy się warunkami w pętli, bo tak musi być !!
 	static prepareDOMData(){
 
 		if(DOM.Data.Url && DOM.Data.DataType && DOM.Data.DataMethod ){
@@ -2086,33 +1706,25 @@ class DOM{
 					
 					if(DOM.Data.Body[RowId ].isFullyInitialized() ){
 						
-						//Musi to wszystko być w tej pętli, bo są warunki, które zakończyłyby przetwarzanie całego wiersza. A wiersz musi być CAŁY przetworzony
 						for( const RowKey in DOM.Data.Body[RowId ] ){
 							
-							//sprawdzam czy jest już obiekt o nazwie OptionType=wartość
-							const OptionTypeName = DOM.Data.Body[RowId ].OptionType;
-							
-							if(Object.hasOwn(PreparedData.Body, OptionTypeName  ) ){
-								
-								//sprawdzam czy jest już obiekt o Nazwie danej wartości lub ciągu wartości jak w przypadku ciasteczka
-								const Name = DOM.Data.Body[RowId ].Name;
-								
-								if(Object.hasOwn(PreparedData.Body[OptionTypeName ], Name ) ){
+							if(Object.hasOwn(PreparedData.Body, DOM.Data.Body[RowId ].OptionType  ) ){
+
+								if(Object.hasOwn(PreparedData.Body[DOM.Data.Body[RowId ].OptionType ], DOM.Data.Body[RowId ].Name ) ){
 									
-									//Musi byc ominięte, gdy w przeciwnym wypadku pojawią się te pola jeszcze raz zdublowane niżej
-									if(RowKey !== 'Name' && RowKey !== 'OptionType' ){
+									if(RowKey !== 'Name' && RowKey !== 'OptionType' && RowKey !== DOM.Data.Body[RowId ].OptionType ){
 										
-										PreparedData.Body[OptionTypeName ][Name ][RowKey ] = DOM.Data.Body[RowId ][RowKey ];
+										PreparedData.Body[DOM.Data.Body[RowId ].OptionType ][DOM.Data.Body[RowId ].Name ][RowKey ] = DOM.Data.Body[RowId ][RowKey ];
 									}
 								}
 								else{
 									
-									PreparedData.Body[OptionTypeName ][Name ] = {};
+									PreparedData.Body[DOM.Data.Body[RowId ].OptionType ][DOM.Data.Body[RowId ].Name ] = {};
 								}
 							}
 							else{
 								
-								PreparedData.Body[OptionTypeName ] = {};
+								PreparedData.Body[DOM.Data.Body[RowId ].OptionType ] = {};
 							}
 						}
 					}
@@ -2128,12 +1740,14 @@ class DOM{
 		}
 		else{
 			
-			alert('Brak danych !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
-			throw new Error('Brak danych !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
+			alert('Brak danych, aby wykonać zadanie !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
+			throw new Error('Brak danych, aby wykonać zadanie !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
 		}
 	}
 	
 	static prepareRequest(){
+		
+		return DOM.prepareDOMData();
 	}
 	
 	
@@ -2213,29 +1827,23 @@ class DOM{
 			
 			DOM.Data.Body[RowId ].isExceptionalEmpty = function(Exception ){
 				
-				if(Array.isArray(Exception ) ){
+				if(!Array.isArray(Exception ) ){
+					
+					Exception = [Exception ];
+				}
+				
+				for(const key in this ){
+					
+					if(Object.hasOwn(this, key ) && typeof this[key ] !== 'function' ){
 
-					for(const key in this ){
-						
-						if(Object.hasOwn(this, key ) && typeof this[key ] !== 'function' ){
+						if(this[key] !== undefined ){
 
-							if(this[key] !== undefined ){
-
-								if(!Exception.includes(key ) ){
-									
-									return false;
-								}
+							if(!Exception.includes(key ) ){
+								
+								return false;
 							}
 						}
 					}
-				}
-				else if(typeof Exception === 'string' || !Exception ){
-					
-					return this.isExceptionalEmpty([Exception ] );
-				}
-				else{
-					
-					throw new Error('Złe argumenty ! Exception: '+Exception );
 				}
 				
 				return true;
@@ -2243,7 +1851,7 @@ class DOM{
 		}
 		else{
 			
-			throw new Error('Złe argumenty ! RowId: '+RowId+', OptionType: '+OptionType+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
+			throw new Error('Niudane utworzenie wiersza ! RowId: '+RowId+', OptionType: '+OptionType+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
 		}
 	}
 	
@@ -2265,13 +1873,12 @@ class DOM{
 		if(typeof RowId === 'string' && typeof OptionType === 'string' && DOM.OptionTypes.List.includes(OptionType ) ){
 			
 			DOM.makeDOMRow(RowId, OptionType );
-			return true;
+			DOM.Data.Body[RowId ].OptionType = OptionType;
 		}
 		else{
 			
-			alert('Złe argumenty ! RowId: '+RowId+', OptionType: '+OptionType+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
+			throw new Error('Złe argumenty ! RowId: '+RowId+', OptionType: '+OptionType+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
 		}
-		return false;
 	}
 
 	static setName(RowId, Name ){
@@ -2294,39 +1901,38 @@ class DOM{
 				return true;
 			}
 		}
-
+		
+		DOM.Data.Body[RowId ].Name = undefined;
 		return false;
 	}
 	
 	static setValue(RowId, Value ){
 		
 		DOM.Data.Body[RowId ].Value = Value;
+
 		return true;
 	}
 	
-	/*??*/
+	/*nigdzie*/
 	static setHtmlElementValue(ElementId, String ){
 		
-		if(typeof ElementId === 'string' && typeof String === 'string' ){
+		const Element = document.getElementById(ElementId );
 		
-			const Element = document.getElementById(ElementId );
-		
-			if(Element ){
-
+		if(Element ){
+			
+			if(typeof String === 'string' ){
+				
 				Element.value = String;
-				return true;
 			}
 			else{
 				
-				throw new Error('Nie znaleziono elementu ! ElementId : '+ElementId );
+				throw new Error('Nie można ustawić wartości elementu, gdyż zmienna nie jest typu string !' );
 			}
 		}
 		else{
 				
-			throw new Error('Złe argumenty ! ElementId: '+ElementId+', String: '+String );
+			throw new Error('Nie znaleziono elementu od podanym Id !\nWartość Id: '+ElementId );
 		}
-		
-		return false;
 	}
 	
 	static setCookiePath(RowId, Path ){
@@ -2349,7 +1955,8 @@ class DOM{
 				return true;
 			}
 		}
-
+		
+		DOM.Data.Body[RowId ].Path = undefined;
 		return false;
 	}
 	
@@ -2369,7 +1976,8 @@ class DOM{
 				alert('Wartość musi być liczbą >= 0 oznaczającą sekundy !' );
 			}
 		}
-
+		
+		DOM.Data.Body[RowId ].Expires = undefined;
 		return false;
 	}
 	
@@ -2382,57 +1990,61 @@ class DOM{
 			DOM.Data.Body[RowId ].Domain = Domain;
 			return true;
 		}
-
+		
+		DOM.Data.Body[RowId ].Domain = undefined;
 		return false;
 	}
 	
 	static setCookieSecure(RowId, Secure ){
 		
-		if(typeof Secure === 'string' && Secure.trim() ){
+		if(typeof Secure === 'boolean' ){
 
-			DOM.Data.Body[RowId ].Secure = Secure.trim();
+			DOM.Data.Body[RowId ].Secure = Secure;
 			return true;
 		}
 		else{
 			
-			alert('Zła wartość !' );
+			alert('Wartość musi być typu boolean !' );
 		}
 
+		DOM.Data.Body[RowId ].Secure = undefined;
 		return false;
 	}
 	
-	static setCookieHttponly(RowId, HttpOnly ){
+	static setCookieHttponly(RowId, Httponly ){
 		
-		if(typeof HttpOnly === 'string' ){
+		if(typeof Httponly === 'boolean' ){
 
-			DOM.Data.Body[RowId ].HttpOnly = HttpOnly;
+			DOM.Data.Body[RowId ].Httponly = Httponly;
 			return true;
 		}
 		else{
 			
-			alert('Nieprawidłowa wartość !' );
+			alert('Wartość musi być typu boolean !' );
 		}
 
+		DOM.Data.Body[RowId ].Httponly = undefined;
 		return false;
 	}
 	
-	static setCookieSamesite(RowId, SameSite ){
+	static setCookieSamesite(RowId, Samesite ){
 
-		if(typeof SameSite === 'string' ){
+		if(typeof Samesite === 'string' ){
 			
-			SameSite = SameSite.trim();
+			Samesite = Samesite.trim();
 				
-			if(!SameSite ){
+			if(!Samesite ){
 				
 				alert('Wartość nie może być pusta !' );
 			}
 			else{
 				
-				DOM.Data.Body[RowId ].SameSite = SameSite;
+				DOM.Data.Body[RowId ].Samesite = Samesite;
 				return true;
 			}
 		}
-
+		
+		DOM.Data.Body[RowId ].Samesite = undefined;
 		return false;
 	}
 	
@@ -2524,7 +2136,7 @@ class DOM{
 			textarea.rows = 2;
 			textarea.cols = 60;
 			textarea.required = true;
-			textarea.classList.add('Url' );
+			textarea.classList.add('url' );
 			textarea.title = 'Wprowadź prawidłowy adres URL, do odczytu danych';
 			textarea.addEventListener('blur', function(){
 
@@ -2565,8 +2177,8 @@ class DOM{
 	
 	/*tworzy wiersz opcji w dokumencie oraz w drzewie DOM*/
 	static htmlAddRow(BoxId, RowId, OptionType ){
-
-		if(typeof BoxId === 'string' && typeof RowId === 'string' && typeof OptionType === 'string' && Object.hasOwn(DOM.Data.Body, RowId ) && DOM.OptionTypes.List.includes(OptionType ) ){
+		console.dir(OptionType );
+		if(typeof BoxId === 'string' && typeof RowId === 'string' && typeof OptionType === 'string' && DOM.OptionTypes.List.includes(OptionType ) ){
 		
 			const TdBox = document.getElementById(BoxId );
 		
@@ -2580,7 +2192,7 @@ class DOM{
 					RowDiv.classList.add('RowDiv' );
 					
 					DOM.OptionTypes[OptionType ].Html.ChildList.forEach((Child, index ) => {
-
+console.dir(DOM.OptionTypes[OptionType ].Html[Child ] );
 						RowDiv.appendChild(DOM.OptionTypes.htmlCreateElement(RowId, DOM.OptionTypes[OptionType ].Html[Child ] ) );
 					} );
 					
@@ -2598,14 +2210,14 @@ class DOM{
 		}
 		else{
 			
-			throw new Error('Złe argumenty ! BoxId: '+BoxId+', RowId: '+RowId+', OptionType: '+OptionType+', Object.hasOwn(DOM.Data.Body, RowId ): '+Object.hasOwn(DOM.Data.Body, RowId )+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
+			throw new Error('Złe argumenty ! BoxId: '+BoxId+', RowId: '+RowId+', OptionType: '+OptionType+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
 		}
 	}
 	
 	/*zmienia zawartość wiersza opcji oraz w drzewie dokumentu DOM*/
 	static htmlChangeRow(RowId, OptionType ){
 		
-		if(typeof RowId === 'string' && typeof OptionType === 'string' && Object.hasOwn(DOM.Data.Body, RowId ) && DOM.OptionTypes.List.includes(OptionType ) ){
+		if(typeof RowId === 'string' && typeof OptionType === 'string' && DOM.OptionTypes.List.includes(OptionType ) ){
 		
 			const RowDiv = document.getElementById(RowId );
 		
@@ -2632,11 +2244,10 @@ class DOM{
 		}
 		else{
 			
-			throw new Error('Złe argumenty ! RowId: '+RowId+', OptionType: '+OptionType+', Object.hasOwn(DOM.Data.Body, RowId ): '+Object.hasOwn(DOM.Data.Body, RowId )+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
+			throw new Error('Złe argumenty ! RowId: '+RowId+', OptionType: '+OptionType+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
 		}
 	}
 
-	/*wycofane wymagające dopasowania do filozofi*/
 	static htmlShowJSONInWindowByBlob(JSONData, Title = 'Dane w formacie JSON' ){
 		
 		let ParsedJSONData;
@@ -2670,7 +2281,7 @@ class DOM{
 		jsonWindow.document.close();
 	}
 	
-	static htmlJSONWindow(FileURL, Data, Title = '' ){
+	static htmlJSONWindow(FileURL, Title = '' ){
 
 		fetch(
 		
@@ -2682,7 +2293,7 @@ class DOM{
 			
 			//jsonWindow.document.write('<textarea>'+JSON.stringify(ParsedJSONData, null, 2 )+'</textarea>' );
 			const RequestWindow = window.open('', '_blank');
-			RequestWindow.Data = Data;
+			RequestWindow.Data = DOM.Data;
 			RequestWindow.document.open();
 			RequestWindow.document.write(html );
 			RequestWindow.document.title = Title;
@@ -2690,7 +2301,6 @@ class DOM{
 		} );
 	}
 	
-	/*niejasne argumenty*/
 	static async showFetchRequest(DataType ){
 
 		const PreparedData = DOM.prepareRequest();

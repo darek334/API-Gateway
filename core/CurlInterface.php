@@ -179,7 +179,7 @@ final class CurlInterface
 	
 	const CURL_OPTION_USERAGENT = [
 			
-		'CURLOPT_USERAGENT'       => 'HttpApiGateway/1.0 (Studencki projekt dla MANS, Kawęczyńska 36, 03-772 Warszawa; author: Dariusz Bodzęta; contact: darek334@gazeta.pl)'
+		'CURLOPT_USERAGENT'       => 'Http Api Gateway/1.0 ( Topic: MANS - Faculty of Management and Technical Sciences - Wstep do Programowania Obiektowego; Authors: Dariusz Bodzeta, Michal Pudzianowski; Contact: darek334@gazeta.pl)'
 	];
 	
 	const HTTP_HEADER_ACCEPT_JSON = [
