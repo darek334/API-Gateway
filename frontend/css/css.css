@@ -1,14 +1,26 @@
 html {
-	background-repeat: no-repeat;
-	background-position: top;
-	background-size: 100%;
+	text-size-adjust: 100%;
 	font-family: Verdana, Courier;
 	font-size: smaller;
 	text-align: left;
-	vertical-align: top;
-	color: palegoldenrod; /*lemonchiffon lightyellow moccasin beige burlywood*/
+	background-repeat: no-repeat;
+	background-position: top;
+	background-size: 100%;
 	background-color: rgb(32 0 0 );
 	background-attachment: fixed;
+	vertical-align: top;
+	color: palegoldenrod; /*lemonchiffon lightyellow moccasin beige burlywood*/
+}
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+.content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  padding: 4rem;
 }
 
 body{
