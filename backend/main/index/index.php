@@ -7,10 +7,12 @@
 		
 		ini_set('display_errors', '0' );
 		
-		header('Content-type: text/html; charset=utf-8');
-		header('X-Autor: Dariusz Bodzeta' );
+		header('Content-type: text/html; charset=utf-8' );
+		header('X-Academic-Project: MANS - Faculty of Management and Technical Sciences' );
+		header('X-Autor: Dariusz Bodzeta, Michal Pudzianowski' );
 		header('X-Contact: darek334@gazeta.pl' );
-		header('X-Nazwa: HTTP API Gateway' );
+		header('X-Application-Name: HTTP Proxy Gateway' );
+		header('X-Application-Description: Internetowa usluga do odczytu danych' );
 
 		ini_set('display_errors', '0' );
 		
