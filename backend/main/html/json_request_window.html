@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html lang="pl">
 	<head>
-		<title>Usługa do odczytu danych - HTTP API Gateway</title>
-		
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="subject" content="MANS - Semestr 1 - Wstęp do Programowania Obiektowego">
-		<meta name="topic" content="Projekt 1">
+	
+		<meta charset="utf-8">
+		<title>HTTP Proxy Gateway</title>
+		<meta name="subject" content="MANS - Wstęp do Programowania Obiektowego">
 		<meta name="author" content="Dariusz Bodzęta, Michał Pudzianowski, darek334@gazeta.pl">
-		<meta name="category" content="studia, study">
-		<meta name="description" content="Strona dzięki której można odczytać dane poprzez API za pomocą przeglądarki internetowej">
-
+		<meta name="purpose" content="academic student project">
+		<meta name="description" content="HTTP Proxy Gateway - Internetowa usługa do odczytu danych">
+		
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
 		<link rel="icon" type="image/png" href="image/mans_logo.png" >
 		
 		<link rel="stylesheet" href="css/css.css">
 		
 		<script src="js/DOM.js" ></script>
+		<script src="js/konstelacja_background.js" ></script>
 		<script>
 			
 			const Data = window.Data;
 		</script>
 	</head>
 	<body>
+		<canvas id="stars"></canvas>
+		<script>
+			runBackground();
+		</script>
 		<table class="main" >
 			<tr>
 				<th >
 					<div class="HeadDiv" >
-						<a href="https://mans.org.pl" target="_blank"><img class="mans-logo" src="image/mans_logo.png"></a>
-						<div>
-							Wstęp do Programowania Obiektowego
-							<br>
-							<br>
-							Dariusz Bodzęta, Michał Pudzianowski
+						<div class="HeadMansLogoDiv">
+							<a href="https://mans.org.pl" target="_blank"><img class="mans-logo" src="image/mans_logo.png"></a>
+						</div>
+						<div class="HeadTitleDiv" >
+							HTTP Proxy Gateway - Portal do Odczytu Danych
 						</div>
 					</div>
 				</th>
 			</tr>
 			<tr>
 				<td>
-					<form method="POST" action="https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1_dev/read_json_fetch/">
+					<form method="POST" action="https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1_dev/read_json/">
 						<div class="ShowData" >
 							<textarea id="TextareaId" name="Data" class="sformatowane_dane" >
 							</textarea>
@@ -46,11 +50,14 @@
 							
 							if(Data ){
 								
+								const JsonData = JSON.stringify(Data, null, 4 ).replace(/\\\//g, '/' );
 								const element = document.getElementById('TextareaId' );
-								element.textContent = JSON.stringify(Data, null, 4 ).replace(/\\\//g, '/' );
+								
+								DOM.setHtmlElementValue('TextareaId', JsonData );
+								
+								element.textContent = JsonData;
 								element.style.height = 'auto';
 								element.style.height = element.scrollHeight + 'px';
-								DOM.setHtmlElementValue('TextareaId', element.textContent );
 							}
 							
 						</script>
