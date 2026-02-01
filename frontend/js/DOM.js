@@ -5,7 +5,7 @@ class DOM{
 		JSON: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_json_fetch/',
 		MySQL: 'https://simplefilter.eu/mans/semestr_3/karwatka/projekt_1/read_mysql/'
 	};
-
+	
 	static Data = {
 		
 		Url: undefined,
@@ -28,270 +28,307 @@ class DOM{
 	
 	static OptionTypes = {
 		
-		Default : 'GET',
 		List : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
-			
+		
 		GET : {
 			
-			List : ['GET', 'Name', 'Value' ],
-			HtmlElementList : ['GET', 'Name', 'Value' ],
-			GET : {
+			RowPropertyList : ['OptionType', 'Name', 'Value' ],
+			OptionType : {
 				
-				Element : 'select',
-				Name : 'GET',
-				Label : 'Typ:',
-				Classes : 'OptionTypeName',
-				Title : 'Wybierz typ opcji',
-				DefaultDOM : 'GET',
-				DefaultSite : 'GET',
-				ValueType : 'string',
-				Options : {
-					
-					List : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
-					Default : 'GET',
-					GET : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'GET',
-						Value : 'GET',
-						ValueType : 'string',
-						TextContent : 'GET'
-					},
-					CURL_OPTION : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURL_OPTION',
-						Value : 'CURL_OPTION',
-						ValueType : 'string',
-						TextContent : 'CURL_OPTION'
-					},
-					CURLOPT_HTTPHEADER : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_HTTPHEADER',
-						Value : 'CURLOPT_HTTPHEADER',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_HTTPHEADER'
-					},
-					CURLOPT_POSTFIELDS : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_POSTFIELDS',
-						Value : 'CURLOPT_POSTFIELDS',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_POSTFIELDS'
-					},
-					CURLOPT_COOKIE : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_COOKIE',
-						Value : 'CURLOPT_COOKIE',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_COOKIE'
-					}
-				},
-				Actions : {
-					
-					List : ['change' ],
-					Default : 'change',
-					change : function(RowId, Data, Element ){
-
-						if(Data.Body[RowId ].isExceptionalEmpty(['OptionType', Data.Body[RowId ].OptionType ] ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else{
-							
-							//przywraca starą wartość
-							Element.value = Data.Body[RowId ].OptionType;
-						}
-					}
-				}
+				DefaultDOM : 'GET'
 			},
 			Name : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Name',
-				Label : 'Nazwa:',
-				Size : 20,
-				Required : true,
-				Classes : 'NameOption',
-				Title : 'Nazwa zmiennej GET',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
-					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
-
-						if(DOM.setName(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
-						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-						}
-					}
-				}
+				DefaultDOM : undefined
 			},
 			Value : {
 				
-				Element : 'textarea',
-				Rows : '1',
-				Name : 'Value',
-				Label : 'Wartość:',
-				Required : true,
-				Classes : 'ValueOption',
-				Title : 'Wartość zmiennej GET',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
+				DefaultDOM : undefined
+			},
+			Html : {
+				
+				Type : 'start',
+				ChildList : ['Div1' ],
+				
+				Div1 : {
 					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
+					Type : 'container',
+					TagName : 'div',
+					ChildList : ['Div1', 'Div2' ],
+					PropertyList : ['classList' ],
+					classList : ['OptionsDiv' ],
+					
+					Div1 : {
+						
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Label1', 'Label2', 'Label3' ],
+						PropertyList : ['classList' ],
+						classList : ['OptionsDiv' ],
+						
+						Label1 : {
+							
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'GET' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionLabel' ],
+							
+							Span : {
+								
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Typ:',
+								classList : ['SpanLabel' ]
+							},
+							GET : {
+									
+								Type : 'container',
+								TagName : 'select',
+								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+								PropertyList : ['name', 'value', 'title', 'classList' ],
+								name : 'GET',
+								value : 'GET',
+								title : 'Wybierz typ opcji',
+								classList : ['OptionTypeName' ],
 
-						if(DOM.setValue(RowId, Data, Element.value ) ){
+								GET : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'GET',
+									value : 'GET',
+									textContent : 'GET'
+								},
+								CURL_OPTION : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURL_OPTION',
+									value : 'CURL_OPTION',
+									textContent : 'CURL_OPTION'
+								},
+								CURLOPT_HTTPHEADER : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_HTTPHEADER',
+									value : 'CURLOPT_HTTPHEADER',
+									textContent : 'CURLOPT_HTTPHEADER'
+								},
+								CURLOPT_POSTFIELDS : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_POSTFIELDS',
+									value : 'CURLOPT_POSTFIELDS',
+									textContent : 'CURLOPT_POSTFIELDS'
+								},
+								CURLOPT_COOKIE : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_COOKIE',
+									value : 'CURLOPT_COOKIE',
+									textContent : 'CURLOPT_COOKIE'
+								},
+								Action : {
+									
+									List : ['change' ],
+									Default : 'default',
+									default : function(RowId, HTMLObject ){
 
-							Element.style.borderColor = 'rgb(0 255 0 )';
+										if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+											
+											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									},
+									change : function(RowId, HTMLObject ){
+
+										if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType ] ) ){
+											
+											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+												
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
+												return true;
+											}
+										}
+										else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
+											
+											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+												
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
+												return true;
+											}
+										}
+										else{
+											
+											//przywraca starą wartość
+											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+										}
+										
+										return false;
+									}
+								}
+							}
+						},
+						Label2 : {
+						
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'Name' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Nazwa:',
+								classList : ['SpanLabel' ]
+							},
+							Name : {
+								
+								Type : 'element',
+								TagName : 'input',
+								PropertyList : ['name', 'value', 'size', 'required', 'classList', 'title' ],
+								name : 'Name',
+								value : '',
+								size : 20,
+								required : true,
+								classList : ['NameOption' ],
+								title : 'Nazwa zmiennej GET',
+								Action : {
+									
+									List : ['blur' ],
+									blur : function(RowId, HTMLObject ){
+
+										if(DOM.setName(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+
+											HTMLObject.value = '';
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									}
+								}
+							}
+						},
+						Label3 : {
+						
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'Value' ],
+							PropertyList : ['classList' ],
+							classList : ['TextareaOptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Wartość:',
+								classList : ['SpanLabel' ]
+							},
+							Value : {
+								
+								Type : 'element',
+								TagName : 'textarea',
+								PropertyList : ['name', 'value', 'rows', 'required', 'classList', 'title' ],
+								name : 'Value',
+								value : '',
+								rows : '1',
+								required : true,
+								classList : ['ValueOption' ],
+								title : 'Wartość zmiennej GET',
+								Action : {
+				
+									List : ['blur' ],
+									blur : function(RowId, HTMLObject ){
+
+										if(DOM.setValue(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+
+											HTMLObject.value = '';
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+
+										return false;
+									}
+								}
+							}
 						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-						}
+					},
+						
+					Div2 : {
+						
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Button' ],
+						PropertyList : ['classList' ],
+						classList : ['RemoveDiv' ],
+						
+						Button : {
+							
+							Type : 'element',
+							TagName : 'button',
+							PropertyList : ['type', 'name', 'title', 'textContent', 'classList' ],
+							type : 'button',
+							name : 'RemoveRow',
+							title : 'Usuń cały wiersz',
+							textContent : 'Usuń',
+							classList : ['RemoveButton' ],
+							Action : {
+										
+								List : ['click' ],
+								click : function(RowId, HTMLObject ){
+									
+									DOM.deleteDOMRow(RowId );
+									const RowDiv = document.getElementById(RowId );
+									RowDiv.remove();
+									
+									return true;
+								}
+							}
+						},
 					}
 				}
 			}
 		},
-		
 		CURL_OPTION : {
 			
-			List : ['CURL_OPTION', 'Name', 'Value' ],
-			HtmlElementList : ['CURL_OPTION', 'Name', 'Value' ],
-			CURL_OPTION : {
+			RowPropertyList : ['OptionType', 'Name', 'Value' ],
+			OptionType : {
 				
-				Element : 'select',
-				Name : 'CURL_OPTION',
-				Label : 'Typ:',
-				Classes : 'OptionTypeName',
-				Title : 'Wybierz typ opcji',
-				DefaultDOM : 'CURL_OPTION',
-				DefaultSite : 'CURL_OPTION',
-				ValueType : 'string',
-				Options : {
-					
-					List : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
-					Default : 'CURL_OPTION',
-					GET : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'GET',
-						Value : 'GET',
-						ValueType : 'string',
-						TextContent : 'GET'
-					},
-					CURL_OPTION : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURL_OPTION',
-						Value : 'CURL_OPTION',
-						ValueType : 'string',
-						TextContent : 'CURL_OPTION'
-					},
-					CURLOPT_HTTPHEADER : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_HTTPHEADER',
-						Value : 'CURLOPT_HTTPHEADER',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_HTTPHEADER'
-					},
-					CURLOPT_POSTFIELDS : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_POSTFIELDS',
-						Value : 'CURLOPT_POSTFIELDS',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_POSTFIELDS'
-					},
-					CURLOPT_COOKIE : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_COOKIE',
-						Value : 'CURLOPT_COOKIE',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_COOKIE'
-					}
-				},
-				Actions : {
-					
-					List : ['change' ],
-					Default : 'change',
-					change : function(RowId, Data, Element ){
-
-						if(Data.Body[RowId ].isExceptionalEmpty(['OptionType', Data.Body[RowId ].OptionType ] ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else{
-							
-							//przywraca starą wartość
-							Element.value = Data.Body[RowId ].OptionType;
-						}
-					}
-				}
+				DefaultDOM : 'CURL_OPTION'
 			},
 			Name : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Name',
-				Label : 'Nazwa:',
-				Size : 20,
-				Required : true,
-				Classes : 'NameOption',
-				Title : 'Nazwa opcji cURL',
 				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
-					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
-						
-						if(DOM.RegExpForbiddenCURLNames.test(Element.value ) ){
-							
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-							DOM.asyncAlert('Nazwa nie może być:\n'+DOM.OptionTypes.CURL_OPTION.Name.ForbiddenNames.List.join('\n') );
-						}
-						else if(DOM.setName(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
-						}
-						else{
-					
-							Element.value = '';
-						}
-					}
-				},
 				ForbiddenNames : {
 					
 					List : [
@@ -306,718 +343,1683 @@ class DOM{
 			},
 			Value : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Value',
-				Label : 'Wartość:',
-				Size : 20,
-				Required : true,
-				Classes : 'ValueOption',
-				Title : 'Wartość opcji cURL',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
+				DefaultDOM : undefined
+			},
+			Html : {
+				
+				Type : 'start',
+				ChildList : ['Div1' ],
+				
+				Div1 : {
 					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
+					Type : 'container',
+					TagName : 'div',
+					ChildList : ['Div1', 'Div2' ],
+					PropertyList : ['classList' ],
+					classList : ['OptionsDiv' ],
+					
+					Div1 : {
+						
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Label1', 'Label2', 'Label3' ],
+						PropertyList : ['classList' ],
+						classList : ['OptionsDiv' ],
+						
+						Label1 : {
+							
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'CURL_OPTION' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Typ:',
+								classList : ['SpanLabel' ]
+							},
+							CURL_OPTION : {
+									
+								Type : 'container',
+								TagName : 'select',
+								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+								PropertyList : ['name', 'value', 'title', 'classList' ],
+								name : 'CURL_OPTION',
+								value : 'CURL_OPTION',
+								title : 'Wybierz typ opcji',
+								classList : ['OptionTypeName' ],
 
-						if(DOM.setValue(RowId, Data, Element.value ) ){
+								GET : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'GET',
+									value : 'GET',
+									textContent : 'GET'
+								},
+								CURL_OPTION : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURL_OPTION',
+									value : 'CURL_OPTION',
+									textContent : 'CURL_OPTION'
+								},
+								CURLOPT_HTTPHEADER : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_HTTPHEADER',
+									value : 'CURLOPT_HTTPHEADER',
+									textContent : 'CURLOPT_HTTPHEADER'
+								},
+								CURLOPT_POSTFIELDS : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_POSTFIELDS',
+									value : 'CURLOPT_POSTFIELDS',
+									textContent : 'CURLOPT_POSTFIELDS'
+								},
+								CURLOPT_COOKIE : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_COOKIE',
+									value : 'CURLOPT_COOKIE',
+									textContent : 'CURLOPT_COOKIE'
+								},
+								Action : {
+									
+									List : ['change' ],
+									Default : 'default',
+									default : function(RowId, HTMLObject ){
 
-							Element.style.borderColor = 'rgb(0 255 0 )';
+										if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+											
+											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									},
+									change : function(RowId, HTMLObject ){
+
+										if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType ] ) ){
+											
+											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+												
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
+												return true;
+											}
+										}
+										else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
+											
+											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+												
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
+												return true;
+											}
+										}
+										else{
+											
+											//przywraca starą wartość
+											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+										}
+
+										return false;
+									}
+								}
+							}
+						},
+						Label2 : {
+						
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'Name' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Nazwa:',
+								classList : ['SpanLabel' ]
+							},
+							Name : {
+								
+								Type : 'element',
+								TagName : 'input',
+								PropertyList : ['name', 'value', 'size', 'required', 'classList', 'title' ],
+								name : 'Name',
+								value : '',
+								size : 20,
+								required : true,
+								classList : ['NameOption' ],
+								title : 'Nazwa opcji cURL',
+								Action : {
+									
+									List : ['blur' ],
+									blur : function(RowId, HTMLObject ){
+
+										if(DOM.setName(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+
+											HTMLObject.value = '';
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									}
+								}
+							}
+						},
+						Label3 : {
+						
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'Value' ],
+							PropertyList : ['classList' ],
+							classList : ['TextareaOptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Wartość:',
+								classList : ['SpanLabel' ]
+							},
+							Value : {
+								
+								Type : 'element',
+								TagName : 'textarea',
+								PropertyList : ['name', 'value', 'rows', 'required', 'classList', 'title' ],
+								name : 'Value',
+								value : '',
+								rows : '1',
+								required : true,
+								classList : ['ValueOption' ],
+								title : 'Wartość opcji cURL',
+								Action : {
+				
+									List : ['blur' ],
+									blur : function(RowId, HTMLObject ){
+
+										if(DOM.setValue(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+
+											HTMLObject.value = '';
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									}
+								}
+							}
 						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
+					},
+						
+					Div2 : {
+						
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Button' ],
+						PropertyList : ['classList' ],
+						classList : ['RemoveDiv' ],
+						
+						Button : {
+							
+							Type : 'element',
+							TagName : 'button',
+							PropertyList : ['type', 'name', 'title', 'textContent', 'classList' ],
+							type : 'button',
+							name : 'RemoveRow',
+							title : 'Usuń cały wiersz',
+							textContent : 'Usuń',
+							classList : ['RemoveButton' ],
+							Action : {
+											
+								List : ['click' ],
+								click : function(RowId, HTMLObject ){
+									
+									DOM.deleteDOMRow(RowId );
+									const RowDiv = document.getElementById(RowId );
+									RowDiv.remove();
+									return true;
+								}
+							}
 						}
 					}
 				}
 			}
 		},
-	
 		CURLOPT_HTTPHEADER : {
 			
-			List : ['CURLOPT_HTTPHEADER', 'Name', 'Value' ],
-			HtmlElementList : ['CURLOPT_HTTPHEADER', 'Name', 'Value' ],
-			CURLOPT_HTTPHEADER : {
+			RowPropertyList : ['OptionType', 'Name', 'Value' ],
+			OptionType : {
 				
-				Element : 'select',
-				Name : 'CURLOPT_HTTPHEADER',
-				Label : 'Typ:',
-				Classes : 'OptionTypeName',
-				Title : 'Wybierz typ opcji',
-				DefaultDOM : 'CURLOPT_HTTPHEADER',
-				DefaultSite : 'CURLOPT_HTTPHEADER',
-				ValueType : 'string',
-				Options : {
-					
-					List : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
-					Default : 'CURLOPT_HTTPHEADER',
-					GET : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'GET',
-						Value : 'GET',
-						ValueType : 'string',
-						TextContent : 'GET'
-					},
-					CURL_OPTION : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURL_OPTION',
-						Value : 'CURL_OPTION',
-						ValueType : 'string',
-						TextContent : 'CURL_OPTION'
-					},
-					CURLOPT_HTTPHEADER : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_HTTPHEADER',
-						Value : 'CURLOPT_HTTPHEADER',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_HTTPHEADER'
-					},
-					CURLOPT_POSTFIELDS : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_POSTFIELDS',
-						Value : 'CURLOPT_POSTFIELDS',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_POSTFIELDS'
-					},
-					CURLOPT_COOKIE : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_COOKIE',
-						Value : 'CURLOPT_COOKIE',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_COOKIE'
-					}
-				},
-				Actions : {
-					
-					List : ['change' ],
-					Default : 'change',
-					change : function(RowId, Data, Element ){
-
-						if(Data.Body[RowId ].isExceptionalEmpty(['OptionType', Data.Body[RowId ].OptionType ] ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else{
-							
-							//przywraca starą wartość
-							Element.value = Data.Body[RowId ].OptionType;
-						}
-					}
-				}
+				DefaultDOM : 'CURLOPT_HTTPHEADER'
 			},
 			Name : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Name',
-				Label : 'Nazwa:',
-				Size : 20,
-				Required : true,
-				Classes : 'NameOption',
-				Title : 'Nazwa klucza w tablicy opcji cURL - CURLOPT_HTTPHEADER',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				Actions : {
-					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
-
-						if(DOM.setName(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
-						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-						}
-					}
-				}
+				DefaultDOM : undefined
 			},
 			Value : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Value',
-				Label : 'Wartość:',
-				Size : 20,
-				Required : true,
-				Classes : 'ValueOption',
-				Title : 'Wartość klucza w tablicy opcji cURL - CURLOPT_HTTPHEADER',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				Actions : {
+				DefaultDOM : undefined
+			},
+			Html : {
+				
+				Type : 'start',
+				ChildList : ['Div1' ],
+				
+				Div1 : {
 					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
+					Type : 'container',
+					TagName : 'div',
+					ChildList : ['Div1', 'Div2' ],
+					PropertyList : ['classList' ],
+					classList : ['OptionsDiv' ],
+					
+					Div1 : {
+						
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Label1', 'Label2', 'Label3' ],
+						PropertyList : ['classList' ],
+						classList : ['OptionsDiv' ],
+						
+						Label1 : {
+							
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'CURLOPT_HTTPHEADER' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Typ:',
+								classList : ['SpanLabel' ]
+							},
+							CURLOPT_HTTPHEADER : {
+									
+								Type : 'container',
+								TagName : 'select',
+								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+								PropertyList : ['name', 'value', 'title', 'classList' ],
+								name : 'CURLOPT_HTTPHEADER',
+								value : 'CURLOPT_HTTPHEADER',
+								title : 'Wybierz typ opcji',
+								classList : ['OptionTypeName' ],
 
-						if(DOM.setValue(RowId, Data, Element.value ) ){
+								GET : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'GET',
+									value : 'GET',
+									textContent : 'GET'
+								},
+								CURL_OPTION : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURL_OPTION',
+									value : 'CURL_OPTION',
+									textContent : 'CURL_OPTION'
+								},
+								CURLOPT_HTTPHEADER : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_HTTPHEADER',
+									value : 'CURLOPT_HTTPHEADER',
+									textContent : 'CURLOPT_HTTPHEADER'
+								},
+								CURLOPT_POSTFIELDS : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_POSTFIELDS',
+									value : 'CURLOPT_POSTFIELDS',
+									textContent : 'CURLOPT_POSTFIELDS'
+								},
+								CURLOPT_COOKIE : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_COOKIE',
+									value : 'CURLOPT_COOKIE',
+									textContent : 'CURLOPT_COOKIE'
+								},
+								Action : {
+									
+									List : ['change' ],
+									Default : 'default',
+									default : function(RowId, HTMLObject ){
 
-							Element.style.borderColor = 'rgb(0 255 0 )';
+										if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+											
+											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									},
+									change : function(RowId, HTMLObject ){
+
+										if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType ] ) ){
+											
+											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+												
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
+												return true;
+											}
+										}
+										else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
+											
+											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+												
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
+												return true;
+											}
+										}
+										else{
+											
+											//przywraca starą wartość
+											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+										}
+
+										return false;
+									}
+								}
+							}
+						},
+						Label2 : {
+						
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'Name' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Nazwa:',
+								classList : ['SpanLabel' ]
+							},
+							Name : {
+								
+								Type : 'element',
+								TagName : 'input',
+								PropertyList : ['name', 'value', 'size', 'required', 'classList', 'title' ],
+								name : 'Name',
+								value : '',
+								size : 20,
+								required : true,
+								classList : ['NameOption' ],
+								title : 'Nazwa klucza w tablicy opcji cURL - CURLOPT_HTTPHEADER',
+								Action : {
+									
+									List : ['blur' ],
+									blur : function(RowId, HTMLObject ){
+
+										if(DOM.setName(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+
+											HTMLObject.value = '';
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									}
+								}
+							}
+						},
+						Label3 : {
+						
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'Value' ],
+							PropertyList : ['classList' ],
+							classList : ['TextareaOptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Wartość:',
+								classList : ['SpanLabel' ]
+							},
+							Value : {
+								
+								Type : 'element',
+								TagName : 'textarea',
+								PropertyList : ['name', 'value', 'rows', 'required', 'classList', 'title' ],
+								name : 'Value',
+								value : '',
+								rows : '1',
+								required : true,
+								classList : ['ValueOption' ],
+								title : 'Wartość klucza w tablicy opcji cURL - CURLOPT_HTTPHEADER',
+								Action : {
+				
+									List : ['blur' ],
+									blur : function(RowId, HTMLObject ){
+
+										if(DOM.setValue(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+
+											HTMLObject.value = '';
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									}
+								}
+							}
 						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
+					},
+						
+					Div2 : {
+						
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Button' ],
+						PropertyList : ['classList' ],
+						classList : ['RemoveDiv' ],
+						
+						Button : {
+							
+							Type : 'element',
+							TagName : 'button',
+							PropertyList : ['type', 'name', 'title', 'textContent', 'classList' ],
+							type : 'button',
+							name : 'RemoveRow',
+							title : 'Usuń cały wiersz',
+							textContent : 'Usuń',
+							classList : ['RemoveButton' ],
+							Action : {
+											
+								List : ['click' ],
+								click : function(RowId, HTMLObject ){
+									
+									DOM.deleteDOMRow(RowId );
+									const RowDiv = document.getElementById(RowId );
+									RowDiv.remove();
+									return true;
+								}
+							}
 						}
 					}
 				}
 			}
 		},
-		
 		CURLOPT_POSTFIELDS : {
 			
-			List : ['CURLOPT_POSTFIELDS', 'Name', 'Value' ],
-			HtmlElementList : ['CURLOPT_POSTFIELDS', 'Name', 'Value' ],
-			CURLOPT_POSTFIELDS : {
+			RowPropertyList : ['OptionType', 'Name', 'Value' ],
+			OptionType : {
 				
-				Element : 'select',
-				Name : 'CURLOPT_POSTFIELDS',
-				Label : 'Typ:',
-				Classes : 'OptionTypeName',
-				Title : 'Wybierz typ opcji',
-				DefaultDOM : 'CURLOPT_POSTFIELDS',
-				DefaultSite : 'CURLOPT_POSTFIELDS',
-				ValueType : 'string',
-				Options : {
-					
-					List : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
-					Default : 'CURLOPT_POSTFIELDS',
-					GET : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'GET',
-						Value : 'GET',
-						ValueType : 'string',
-						TextContent : 'GET'
-					},
-					CURL_OPTION : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURL_OPTION',
-						Value : 'CURL_OPTION',
-						ValueType : 'string',
-						TextContent : 'CURL_OPTION'
-					},
-					CURLOPT_HTTPHEADER : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_HTTPHEADER',
-						Value : 'CURLOPT_HTTPHEADER',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_HTTPHEADER'
-					},
-					CURLOPT_POSTFIELDS : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_POSTFIELDS',
-						Value : 'CURLOPT_POSTFIELDS',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_POSTFIELDS'
-					},
-					CURLOPT_COOKIE : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_COOKIE',
-						Value : 'CURLOPT_COOKIE',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_COOKIE'
-					}
-				},
-				Actions : {
-					
-					List : ['change' ],
-					Default : 'change',
-					change : function(RowId, Data, Element ){
-
-						if(Data.Body[RowId ].isExceptionalEmpty(['OptionType', Data.Body[RowId ].OptionType ] ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else{
-							
-							//przywraca starą wartość
-							Element.value = Data.Body[RowId ].OptionType;
-						}
-					}
-				}
+				DefaultDOM : 'CURLOPT_POSTFIELDS'
 			},
 			Name : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Name',
-				Label : 'Nazwa:',
-				Size : 20,
-				Required : true,
-				Classes : 'NameOption',
-				Title : 'Nazwa klucza w tablicy BODY - CURLOPT_POSTFIELDS. Format wysłania BODY zależy od wartości klucza Content-Type w CURLOPT_HTTPHEADER',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
-					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
-
-						if(DOM.setName(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
-						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-						}
-					}
-				}
+				DefaultDOM : undefined
 			},
 			Value : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Value',
-				Label : 'Wartość:',
-				Size : 20,
-				Required : true,
-				Classes : 'ValueOption',
-				Title : 'Wartość klucza w tablicy BODY - CURLOPT_POSTFIELDS',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
+				DefaultDOM : undefined
+			},
+			Html : {
+				
+				Type : 'start',
+				ChildList : ['Div1' ],
+				
+				Div1 : {
 					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
+					Type : 'container',
+					TagName : 'div',
+					ChildList : ['Div1', 'Div2' ],
+					PropertyList : ['classList' ],
+					classList : ['OptionsDiv' ],
+					
+					Div1 : {
+						
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Label1', 'Label2', 'Label3' ],
+						PropertyList : ['classList' ],
+						classList : ['OptionsDiv' ],
+						
+						Label1 : {
+							
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'CURLOPT_POSTFIELDS' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Typ:',
+								classList : ['SpanLabel' ]
+							},
+							CURLOPT_POSTFIELDS : {
+									
+								Type : 'container',
+								TagName : 'select',
+								ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+								PropertyList : ['name', 'value', 'title', 'classList' ],
+								name : 'CURLOPT_POSTFIELDS',
+								value : 'CURLOPT_POSTFIELDS',
+								title : 'Wybierz typ opcji',
+								classList : ['OptionTypeName' ],
 
-						if(DOM.setValue(RowId, Data, Element.value ) ){
+								GET : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'GET',
+									value : 'GET',
+									textContent : 'GET'
+								},
+								CURL_OPTION : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURL_OPTION',
+									value : 'CURL_OPTION',
+									textContent : 'CURL_OPTION'
+								},
+								CURLOPT_HTTPHEADER : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_HTTPHEADER',
+									value : 'CURLOPT_HTTPHEADER',
+									textContent : 'CURLOPT_HTTPHEADER'
+								},
+								CURLOPT_POSTFIELDS : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_POSTFIELDS',
+									value : 'CURLOPT_POSTFIELDS',
+									textContent : 'CURLOPT_POSTFIELDS'
+								},
+								CURLOPT_COOKIE : {
+									
+									Type : 'element',
+									TagName : 'option',
+									PropertyList : ['name', 'value', 'textContent' ],
+									name : 'CURLOPT_COOKIE',
+									value : 'CURLOPT_COOKIE',
+									textContent : 'CURLOPT_COOKIE'
+								},
+								Action : {
+									
+									List : ['change' ],
+									Default : 'default',
+									default : function(RowId, HTMLObject ){
 
-							Element.style.borderColor = 'rgb(0 255 0 )';
+										if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+											
+											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									},
+									change : function(RowId, HTMLObject ){
+
+										if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType ] ) ){
+											
+											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+												
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
+												return true;
+											}
+										}
+										else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
+											
+											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+												
+												DOM.htmlChangeRow(RowId, HTMLObject.value );
+												return true;
+											}
+										}
+										else{
+											
+											//przywraca starą wartość
+											HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+										}
+
+										return false;
+									}
+								}
+							}
+						},
+						Label2 : {
+						
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'Name' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Nazwa:',
+								classList : ['SpanLabel' ]
+							},
+							Name : {
+								
+								Type : 'element',
+								TagName : 'input',
+								PropertyList : ['name', 'value', 'size', 'required', 'classList', 'title' ],
+								name : 'Name',
+								value : '',
+								size : 20,
+								required : true,
+								classList : ['NameOption' ],
+								title : 'Nazwa klucza w tablicy BODY - CURLOPT_POSTFIELDS. Format wysłania BODY zależy od wartości klucza Content-Type w CURLOPT_HTTPHEADER',
+								Action : {
+									
+									List : ['blur' ],
+									blur : function(RowId, HTMLObject ){
+
+										if(DOM.setName(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+
+											HTMLObject.value = '';
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									}
+								}
+							}
+						},
+						Label3 : {
+						
+							Type : 'container',
+							TagName : 'label',
+							ChildList : ['Span', 'Value' ],
+							PropertyList : ['classList' ],
+							classList : ['TextareaOptionLabel' ],
+							
+							Span : {
+	
+								Type : 'element',
+								TagName : 'span',
+								PropertyList : ['textContent', 'classList' ],
+								textContent : 'Wartość:',
+								classList : ['SpanLabel' ]
+							},
+							Value : {
+								
+								Type : 'element',
+								TagName : 'textarea',
+								PropertyList : ['name', 'value', 'rows', 'required', 'classList', 'title' ],
+								name : 'Value',
+								value : '',
+								rows : '1',
+								required : true,
+								classList : ['ValueOption' ],
+								title : 'Wartość klucza w tablicy BODY - CURLOPT_POSTFIELDS',
+								Action : {
+				
+									List : ['blur' ],
+									blur : function(RowId, HTMLObject ){
+
+										if(DOM.setValue(RowId, HTMLObject.value ) ){
+
+											HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+											return true;
+										}
+										else{
+
+											HTMLObject.value = '';
+											HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+										}
+										
+										return false;
+									}
+								}
+							}
 						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
+					},
+						
+					Div2 : {
+						
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Button' ],
+						PropertyList : ['classList' ],
+						classList : ['RemoveDiv' ],
+						
+						Button : {
+							
+							Type : 'element',
+							TagName : 'button',
+							PropertyList : ['type', 'name', 'title', 'textContent', 'classList' ],
+							type : 'button',
+							name : 'RemoveRow',
+							title : 'Usuń cały wiersz',
+							textContent : 'Usuń',
+							classList : ['RemoveButton' ],
+							Action : {
+											
+								List : ['click' ],
+								click : function(RowId, HTMLObject ){
+									
+									DOM.deleteDOMRow(RowId );
+									const RowDiv = document.getElementById(RowId );
+									RowDiv.remove();
+									return true;
+								}
+							}
 						}
 					}
 				}
 			}
-		},
-		
+		},		
 		CURLOPT_COOKIE : {
 			
-			List : ['CURLOPT_COOKIE', 'Name', 'Value', 'Path', 'Expires', 'Domain', 'Secure', 'Httponly', 'Samesite' ],
-			HtmlElementList : ['CURLOPT_COOKIE', 'Name', 'Value', 'Br', 'Path', 'Expires', 'Domain', 'Br', 'Secure', 'Httponly', 'Samesite' ],
-			CURLOPT_COOKIE : {
+			RowPropertyList : ['OptionType', 'Name', 'Value', 'Path', 'Expires', 'Domain', 'Secure', 'HttpOnly', 'SameSite' ],
+			OptionType : {
 				
-				Element : 'select',
-				Name : 'CURLOPT_COOKIE',
-				Label : 'Typ:',
-				Classes : 'OptionTypeName',
-				Title : 'Wybierz typ opcji',
-				DefaultDOM : 'CURLOPT_COOKIE',
-				DefaultSite : 'CURLOPT_COOKIE',
-				ValueType : 'string',
-				Options : {
-					
-					List : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
-					Default : 'CURLOPT_COOKIE',
-					GET : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'GET',
-						Value : 'GET',
-						ValueType : 'string',
-						TextContent : 'GET'
-					},
-					CURL_OPTION : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURL_OPTION',
-						Value : 'CURL_OPTION',
-						ValueType : 'string',
-						TextContent : 'CURL_OPTION'
-					},
-					CURLOPT_HTTPHEADER : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_HTTPHEADER',
-						Value : 'CURLOPT_HTTPHEADER',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_HTTPHEADER'
-					},
-					CURLOPT_POSTFIELDS : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_POSTFIELDS',
-						Value : 'CURLOPT_POSTFIELDS',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_POSTFIELDS'
-					},
-					CURLOPT_COOKIE : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'CURLOPT_COOKIE',
-						Value : 'CURLOPT_COOKIE',
-						ValueType : 'string',
-						TextContent : 'CURLOPT_COOKIE'
-					}
-				},
-				Actions : {
-					
-					List : ['change' ],
-					Default : 'change',
-					change : function(RowId, Data, Element ){
-
-						if(Data.Body[RowId ].isExceptionalEmpty(['OptionType', Data.Body[RowId ].OptionType ] ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
-							
-							DOM.setOptionType(RowId, Data, Element.value );
-							DOM.htmlChangeRow(RowId, Data, Element.value );
-						}
-						else{
-							
-							//przywraca starą wartość
-							Element.value = Data.Body[RowId ].OptionType;
-						}
-					}
-				}
+				DefaultDOM : 'CURLOPT_COOKIE'
 			},
 			Name : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Name',
-				Label : 'Nazwa:',
-				Size : 20,
-				Required : true,
-				Classes : 'NameOption',
-				Title : 'Unikalna nazwa ciasteczka. Bez spacji i znaków specjalnych.',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
-					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
-
-						if(DOM.setName(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
-						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-						}
-					}
-				}
+				DefaultDOM : undefined
 			},
 			Value : {
 				
-				Element : 'textarea',
-				Rows : '1',
-				Name : 'Value',
-				Label : 'Wartość:',
-				Required : true,
-				Classes : 'ValueOption',
-				Title : 'Dane przekazywane w ciasteczku',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
-					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
-
-						if(DOM.setValue(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
-						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-						}
-					}
-				}
+				DefaultDOM : undefined
 			},
 			Path : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Path',
-				Label : 'Path:',
-				Size : 20,
-				Required : true,
-				Classes : 'PathOption',
-				Title : 'Określa zasięg wysyłanego ciasteczka przez klienta do folderów źródła - hosta. / oznacza całą domenę. Brak wartości ustawia ścieżkę tylko dla folderów źródłowych z których nastąpiło ustawienie ciasteczka - opcja została zablokowana w celach lepszej kontroli - jest też niezalecana',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
-					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
-
-						if(DOM.setCookiePath(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
-						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-						}
-					}
-				}
+				DefaultDOM : undefined
 			},
 			Expires : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Expires',
-				Label : 'Expires:',
-				Size : 20,
-				Required : true,
-				Classes : 'ExpiresOption',
-				Title : 'Data i czas wygaśnięcia ciasteczka podana w sekundach. Zero oznacza ciasteczko sesyjne – usuwane po zamknięciu przeglądarki, minusowa wartość usuwa ciasteczko z przeglądarki',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
-					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element){
-
-						if(DOM.setCookieExpires(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
-						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-						}
-					}
-				}
+				DefaultDOM : undefined
 			},
 			Domain : {
 				
-				Element : 'input',
-				Type : 'text',
-				Name : 'Domain',
-				Label : 'Domain:',
-				Size : 20,
-				Required : true,
-				Classes : 'DomainOption',
-				Title : 'Określa domenę, dla której ciasteczko jest dostępne. Brak domeny = tylko aktualny host. example.com udostępnia ciasteczko wszystkim subdomenom. Nie ustawiaj domeny z katalogami - to jest błąd - przeglądarki odrzucają takie ustawienia źródła( hosta )',
-				DefaultDOM : undefined,
-				DefaultSite : '',
-				ValueType : 'string',
-				Actions : {
-					
-					List : ['blur' ],
-					blur : function(RowId, Data, Element ){
-
-						if(DOM.setCookieDomain(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
-						}
-						else{
-
-							Element.value = '';
-							Element.style.borderColor = 'rgb(255 0 0 )';
-						}
-					}
-				}
+				DefaultDOM : undefined
 			},
 			Secure : {
 				
-				Element : 'select',
-				Name : 'Secure',
-				Label : 'Secure:',
-				Classes : 'SecureOption',
-				Title : 'Gdy włączone, ciasteczko jest wysyłane tylko przez HTTPS. Wymagane dla SameSite=None',
-				DefaultDOM : false,
-				DefaultSite : 'False',
-				ValueType : 'boolean',
-				Options : {
+				DefaultDOM : 'False'
+			},
+			HttpOnly : {
+				
+				DefaultDOM : 'True'
+			},
+			SameSite : {
+				
+				DefaultDOM : 'Lax'
+			},
+			Html : {
+				
+				Type : 'start',
+				ChildList : ['Div1' ],
+				
+				Div1 : {
 					
-					List : ['True', 'False' ],
-					Default : 'False',
-					True : {
-
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'True',
-						Value : 'True',
-						ValueType : 'boolean',
-						TextContent : 'True'
-					},
-					False : {
+					Type : 'container',
+					TagName : 'div',
+					ChildList : ['Div1', 'Div2' ],
+					PropertyList : ['classList' ],
+					classList : ['MainOptionDiv' ],
+					
+					Div1 : {
 						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'False',
-						Value : 'False',
-						ValueType : 'boolean',
-						TextContent : 'False'
-					}
-				},
-				Actions : {
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Div1', 'Div2', 'Div3' ],
+						PropertyList : ['classList' ],
+						classList : ['OptionRowsDiv' ],
+						
+						Div1 : {
+							
+							Type : 'container',
+							TagName : 'div',
+							ChildList : ['Label1', 'Label2', 'Label3' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionsDiv' ],
+							
+							Label1 : {
+						
+								Type : 'container',
+								TagName : 'label',
+								ChildList : ['Span', 'CURLOPT_COOKIE' ],
+								PropertyList : ['classList' ],
+								classList : ['OptionLabel' ],
+								
+								Span : {
+	
+									Type : 'element',
+									TagName : 'span',
+									PropertyList : ['textContent', 'classList' ],
+									textContent : 'Typ:',
+									classList : ['SpanLabel' ]
+								},
+								CURLOPT_COOKIE : {
+									
+									Type : 'container',
+									TagName : 'select',
+									ChildList : ['GET', 'CURL_OPTION', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE' ],
+									PropertyList : ['name', 'value', 'title', 'classList' ],
+									name : 'CURLOPT_COOKIE',
+									value : 'CURLOPT_COOKIE',
+									title : 'Wybierz typ opcji',
+									classList : ['OptionTypeName' ],
+
+									GET : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'GET',
+										value : 'GET',
+										textContent : 'GET'
+									},
+									CURL_OPTION : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'CURL_OPTION',
+										value : 'CURL_OPTION',
+										textContent : 'CURL_OPTION'
+									},
+									CURLOPT_HTTPHEADER : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'CURLOPT_HTTPHEADER',
+										value : 'CURLOPT_HTTPHEADER',
+										textContent : 'CURLOPT_HTTPHEADER'
+									},
+									CURLOPT_POSTFIELDS : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'CURLOPT_POSTFIELDS',
+										value : 'CURLOPT_POSTFIELDS',
+										textContent : 'CURLOPT_POSTFIELDS'
+									},
+									CURLOPT_COOKIE : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'CURLOPT_COOKIE',
+										value : 'CURLOPT_COOKIE',
+										textContent : 'CURLOPT_COOKIE'
+									},
+									Action : {
+										
+										List : ['change' ],
+										Default : 'default',
+										default : function(RowId, HTMLObject ){
+
+											if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+												
+												HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										},
+										change : function(RowId, HTMLObject ){
+
+											if(DOM.Data.Body[RowId ].isExceptionalEmpty(['OptionType', DOM.Data.Body[RowId ].OptionType, 'Secure', 'HttpOnly', 'SameSite' ] ) ){
+											
+												if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+													
+													DOM.htmlChangeRow(RowId, HTMLObject.value );
+													return true;
+												}
+											}
+											else if(confirm('Wszystkie pola zostaną wyczyszczone\n\nKontynuować ?!' ) ){
+												
+												if(DOM.setOptionType(RowId, HTMLObject.value ) ){
+													
+													DOM.htmlChangeRow(RowId, HTMLObject.value );
+													return true;
+												}
+											}
+											else{
+												
+												//przywraca starą wartość
+												HTMLObject.value = DOM.Data.Body[RowId ].OptionType;
+											}
+
+											return false;
+										}
+									}
+								}
+							},
+							Label2 : {
+						
+								Type : 'container',
+								TagName : 'label',
+								ChildList : ['Span', 'Name' ],
+								PropertyList : ['classList' ],
+								classList : ['OptionLabel' ],
+								
+								Span : {
+	
+									Type : 'element',
+									TagName : 'span',
+									PropertyList : ['textContent', 'classList' ],
+									textContent : 'Nazwa:',
+									classList : ['SpanLabel' ]
+								},
+								Name : {
+									
+									Type : 'element',
+									TagName : 'input',
+									PropertyList : ['name', 'value', 'size', 'required', 'classList', 'title' ],
+									name : 'Name',
+									value : '',
+									size : 20,
+									required : true,
+									classList : ['NameOption' ],
+									title : 'Unikalna nazwa ciasteczka. Bez spacji i znaków specjalnych.',
+									Action : {
+										
+										List : ['blur' ],
+										blur : function(RowId, HTMLObject ){
+
+											if(DOM.setName(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+
+												HTMLObject.value = '';
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return true;
+										}
+									}
+								}
+							},
+							Label3 : {
+						
+								Type : 'container',
+								TagName : 'label',
+								ChildList : ['Span', 'Value' ],
+								PropertyList : ['classList' ],
+								classList : ['TextareaOptionLabel' ],
+								
+								Span : {
+	
+									Type : 'element',
+									TagName : 'span',
+									PropertyList : ['textContent', 'classList' ],
+									textContent : 'Wartość:',
+									classList : ['SpanLabel' ]
+								},
+								Value : {
+									
+									Type : 'element',
+									TagName : 'textarea',
+									PropertyList : ['name', 'value', 'rows', 'required', 'classList', 'title' ],
+									name : 'Value',
+									value : '',
+									rows : '1',
+									required : true,
+									classList : ['ValueOption' ],
+									title : 'Wartość ciasteczka',
+									Action : {
 					
-					List : ['change' ],
-					Default : 'change',
-					change : function(RowId, Data, Element ){
+										List : ['blur' ],
+										blur : function(RowId, HTMLObject ){
 
-						if(DOM.setCookieSecure(RowId, Data, Element.value === 'True'?true:false ) ){
+											if(DOM.setValue(RowId, HTMLObject.value ) ){
 
-							Element.style.borderColor = 'rgb(0 255 0 )';
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+
+												HTMLObject.value = '';
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										}
+									}
+								}
+							}
+						},
+						
+						Div2 : {
+							
+							Type : 'container',
+							TagName : 'div',
+							ChildList : ['Label1', 'Label2', 'Label3' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionsDiv' ],
+							
+							Label1 : {
+						
+								Type : 'container',
+								TagName : 'label',
+								ChildList : ['Span', 'Path' ],
+								PropertyList : ['classList' ],
+								classList : ['OptionLabel' ],
+								
+								Span : {
+	
+									Type : 'element',
+									TagName : 'span',
+									PropertyList : ['textContent', 'classList' ],
+									textContent : 'Path:',
+									classList : ['SpanLabel' ]
+								},
+								Path : {
+									
+									Type : 'element',
+									TagName : 'input',
+									PropertyList : ['name', 'value', 'size', 'required', 'classList', 'title' ],
+									name : 'Path',
+									value : '',
+									size : 20,
+									required : true,
+									classList : ['PathOption' ],
+									title : 'Określa zasięg wysyłanego ciasteczka przez klienta do folderów źródła - hosta. / oznacza całą domenę. Brak wartości ustawia ścieżkę tylko dla folderów źródłowych z których nastąpiło ustawienie ciasteczka - opcja została zablokowana w celach lepszej kontroli - jest też niezalecana',
+									Action : {
+					
+										List : ['blur' ],
+										blur : function(RowId, HTMLObject ){
+
+											if(DOM.setCookiePath(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+
+												HTMLObject.value = '';
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										}
+									}
+								}
+							},
+							Label2 : {
+						
+								Type : 'container',
+								TagName : 'label',
+								ChildList : ['Span', 'Expires' ],
+								PropertyList : ['classList' ],
+								classList : ['OptionLabel' ],
+								
+								Span : {
+	
+									Type : 'element',
+									TagName : 'span',
+									PropertyList : ['textContent', 'classList' ],
+									textContent : 'Czas:',
+									classList : ['SpanLabel' ]
+								},
+								Expires : {
+									
+									Type : 'element',
+									TagName : 'input',
+									PropertyList : ['name', 'value', 'size', 'required', 'classList', 'title' ],
+									name : 'Expires',
+									value : '',
+									size : 20,
+									required : true,
+									classList : ['ExpiresOption' ],
+									title : 'Data i czas wygaśnięcia ciasteczka podana w sekundach. Zero oznacza ciasteczko sesyjne – usuwane po zamknięciu przeglądarki, minusowa wartość usuwa ciasteczko z przeglądarki',
+									Action : {
+		
+										List : ['blur' ],
+										blur : function(RowId, HTMLObject){
+
+											if(DOM.setCookieExpires(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+
+												HTMLObject.value = '';
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										}
+									}
+								}
+							},
+							Label3 : {
+						
+								Type : 'container',
+								TagName : 'label',
+								ChildList : ['Span', 'Domain' ],
+								PropertyList : ['classList' ],
+								classList : ['TextareaOptionLabel' ],
+								
+								Span : {
+	
+									Type : 'element',
+									TagName : 'span',
+									PropertyList : ['textContent', 'classList' ],
+									textContent : 'Domena:',
+									classList : ['SpanLabel' ]
+								},
+								Domain : {
+									
+									Type : 'element',
+									TagName : 'textarea',
+									PropertyList : ['name', 'value', 'rows', 'required', 'classList', 'title' ],
+									name : 'Domain',
+									value : '',
+									rows : '1',
+									required : true,
+									classList : ['DomainOption' ],
+									title : 'Określa domenę, dla której ciasteczko jest dostępne. Brak domeny = tylko aktualny host. example.com udostępnia ciasteczko wszystkim subdomenom. Nie ustawiaj domeny z katalogami - to jest błąd - przeglądarki odrzucają takie ustawienia źródła( hosta )',
+									Action : {
+		
+										List : ['blur' ],
+										blur : function(RowId, HTMLObject ){
+
+											if(DOM.setCookieDomain(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+
+												HTMLObject.value = '';
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										}
+									}
+								}
+							}
+						},
+						
+						Div3 : {
+							
+							Type : 'container',
+							TagName : 'div',
+							ChildList : ['Label1', 'Label2', 'Label3' ],
+							PropertyList : ['classList' ],
+							classList : ['OptionsDiv' ],
+							
+							Label1 : {
+						
+								Type : 'container',
+								TagName : 'label',
+								ChildList : ['Span', 'Secure' ],
+								PropertyList : ['classList' ],
+								classList : ['OptionLabel' ],
+								
+								Span : {
+	
+									Type : 'element',
+									TagName : 'span',
+									PropertyList : ['textContent', 'classList' ],
+									textContent : 'Secure:',
+									classList : ['SpanLabel' ]
+								},
+								Secure : {
+									
+									Type : 'container',
+									TagName : 'select',
+									PropertyList : ['name', 'value', 'title', 'classList' ],
+									ChildList : ['True', 'False' ],
+									name : 'Secure',
+									value : 'False',
+									title : 'Gdy włączone, ciasteczko jest wysyłane tylko przez HTTPS. Wymagane dla SameSite=None',
+									classList : ['SecureOption' ],
+	
+									True : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'True',
+										value : 'True',
+										textContent : 'True'
+									},
+									False : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'False',
+										value : 'False',
+										textContent : 'False'
+									},
+									Action : {
+					
+										List : ['change' ],
+										Default : 'default',
+										default : function(RowId, HTMLObject ){
+
+											if(DOM.setCookieSecure(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+												
+												HTMLObject.value = DOM.Data.Body[RowId ].Secure;
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										},
+										change : function(RowId, HTMLObject ){
+
+											if(DOM.setCookieSecure(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+
+												HTMLObject.value = DOM.Data.Body[RowId ].Secure;
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										}
+									}
+								}
+							},
+							Label2 : {
+						
+								Type : 'container',
+								TagName : 'label',
+								ChildList : ['Span', 'HttpOnly' ],
+								PropertyList : ['classList' ],
+								classList : ['OptionLabel' ],
+								
+								Span : {
+	
+									Type : 'element',
+									TagName : 'span',
+									PropertyList : ['textContent', 'classList' ],
+									textContent : 'HttpOnly:',
+									classList : ['SpanLabel' ]
+								},
+								HttpOnly : {
+									
+									Type : 'container',
+									TagName : 'select',
+									PropertyList : ['name', 'value', 'title', 'classList' ],
+									ChildList : ['True', 'False' ],
+									name : 'HttpOnly',
+									value : 'True',
+									title : 'Gdy włączone, ciasteczko nie jest dostępne w JavaScript. Chroni przed atakami XSS. Zalecane włączenie dla ciasteczek sesyjnych',
+									classList : ['HttpOnlyOption' ],
+									
+									True : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'True',
+										value : 'True',
+										textContent : 'True'
+									},
+									False : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'False',
+										value : 'False',
+										textContent : 'False'
+									},
+									Action : {
+					
+										List : ['change' ],
+										Default : 'default',
+										default : function(RowId, HTMLObject ){
+
+											if(DOM.setCookieHttponly(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+												
+												HTMLObject.value = DOM.Data.Body[RowId ].HttpOnly;
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										},
+										change : function(RowId, HTMLObject ){
+
+											if(DOM.setCookieHttponly(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+
+												HTMLObject.value = DOM.Data.Body[RowId ].HttpOnly;
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										}
+									}
+								}
+							},
+							Label3 : {
+						
+								Type : 'container',
+								TagName : 'label',
+								ChildList : ['Span', 'SameSite' ],
+								PropertyList : ['classList' ],
+								classList : ['OptionLabel' ],
+								
+								Span : {
+	
+									Type : 'element',
+									TagName : 'span',
+									PropertyList : ['textContent', 'classList' ],
+									textContent : 'SameSite:',
+									classList : ['SpanLabel' ]
+								},
+								SameSite : {
+									
+									Type : 'container',
+									TagName : 'select',
+									PropertyList : ['name', 'value', 'title', 'classList' ],
+									ChildList : ['None', 'Lax', 'Strict' ],
+									name : 'SameSite',
+									value : 'Lax',
+									title : 'Wskazuje przeglądarce (klientowi), czy ciasteczko jest wysyłane w kontekście cross-site. Strict – wysyłane tylko przy nawigacji domena pochodzenia → domena pochodzenia. Lax – wysyłane przy nawigacji obca domena → domena pochodzenia (GET, top-level). None – wysyłane w kontekście obca domena → domena pochodzenia we wszystkich typach zapytań, w tym JavaScript (fetch, XHR, iframe). Wymaga Secure=true czyli wymagany jest protokoł HTTPS',
+									classList : ['SamesiteOption' ],
+									
+									None : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'None',
+										value : 'None',
+										textContent : 'None'
+									},
+									Lax : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'Lax',
+										value : 'Lax',
+										textContent : 'Lax'
+									},
+									Strict : {
+										
+										Type : 'element',
+										TagName : 'option',
+										PropertyList : ['name', 'value', 'textContent' ],
+										name : 'Strict',
+										value : 'Strict',
+										textContent : 'Strict'
+									},
+									Action : {
+										
+										List : ['change' ],
+										Default : 'default',
+										default : function(RowId, HTMLObject ){
+
+											if(DOM.setCookieSamesite(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+												
+												HTMLObject.value = DOM.Data.Body[RowId ].SameSite;
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										},
+										change : function(RowId, HTMLObject ){
+
+											if(DOM.setCookieSamesite(RowId, HTMLObject.value ) ){
+
+												HTMLObject.style.borderColor = 'rgb(0 255 0 )';
+												return true;
+											}
+											else{
+
+												HTMLObject.value = DOM.Data.Body[RowId ].SameSite;
+												HTMLObject.style.borderColor = 'rgb(255 0 0 )';
+											}
+											
+											return false;
+										}
+									}
+								}
+							}
 						}
-						else{
-
-							Element.value = Data.Body[RowId ].Secure;
-							Element.style.borderColor = 'rgb(255 0 0 )';
+					},
+					
+					Div2 : {
+						
+						Type : 'container',
+						TagName : 'div',
+						ChildList : ['Button' ],
+						PropertyList : ['classList' ],
+						classList : ['RemoveDiv' ],
+						
+						Button : {
+							
+							Type : 'element',
+							TagName : 'button',
+							PropertyList : ['type', 'name', 'title', 'textContent', 'classList' ],
+							type : 'button',
+							name : 'RemoveRow',
+							title : 'Usuń cały wiersz',
+							textContent : 'Usuń',
+							classList : ['RemoveButton' ],
+							Action : {
+										
+								List : ['click' ],
+								click : function(RowId, HTMLObject ){
+									
+									DOM.deleteDOMRow(RowId );
+									const RowDiv = document.getElementById(RowId );
+									RowDiv.remove();
+									return true;
+								}
+							}
 						}
 					}
 				}
-			},
-			Httponly : {
+			}
+		},
+		
+		htmlCreateElement : function(RowId, DOMObject ){
+
+			if(typeof RowId === 'string' && typeof DOMObject === 'object' && Object.hasOwn(DOMObject, 'Type' ) ){
 				
-				Element : 'select',
-				Name : 'Httponly',
-				Label : 'Httponly:',
-				Classes : 'HttponlyOption',
-				Title : 'Gdy włączone, ciasteczko nie jest dostępne w JavaScript. Chroni przed atakami XSS. Zalecane włączenie dla ciasteczek sesyjnych',
-				DefaultDOM : true,
-				DefaultSite : 'True',
-				ValueType : 'boolean',
-				Options : {
+				if(DOMObject.Type === 'element' ){
 					
-					List : ['True', 'False' ],
-					Default : 'True',
-					True : {
-
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'True',
-						Value : 'True',
-						ValueType : 'boolean',
-						TextContent : 'True'
-					},
-					False : {
+					const HtmlElement = document.createElement(DOMObject.TagName );
+					
+					DOMObject.PropertyList.forEach((PropertyName, index ) => {
 						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'False',
-						Value : 'False',
-						ValueType : 'boolean',
-						TextContent : 'False'
-					}
-				},
-				Actions : {
-					
-					List : ['change' ],
-					Default : 'change',
-					change : function(RowId, Data, Element ){
-
-						if(DOM.setCookieHttponly(RowId, Data, Element.value === 'True'?true:false ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
+						if(PropertyName === 'classList' ){
+							
+							HtmlElement[PropertyName ].add(...DOMObject[PropertyName ] );
 						}
 						else{
-
-							Element.value = Data.Body[RowId ].Httponly;
-							Element.style.borderColor = 'rgb(255 0 0 )';
+							
+							HtmlElement[PropertyName ] = DOMObject[PropertyName ];
+						}
+					} );
+					
+					if(Object.hasOwn(DOMObject, 'Action' ) ){
+						
+						DOMObject.Action.List.forEach((ActionName, index ) => {
+							
+							HtmlElement.addEventListener(ActionName, function(){
+							
+								DOMObject.Action[ActionName ](RowId, this );
+							} );
+						} );
+						
+						if(Object.hasOwn(DOMObject.Action, 'Default' ) ){
+							
+							DOMObject.Action[DOMObject.Action['Default' ] ](RowId, HtmlContainer );
 						}
 					}
+
+					return HtmlElement;
 				}
-			},
-			Samesite : {
-				
-				Element : 'select',
-				Name : 'Samesite',
-				Label : 'Samesite:',
-				Classes : 'SamesiteOption',
-				Title : 'Wskazuje przeglądarce (klientowi), czy ciasteczko jest wysyłane w kontekście cross-site. Strict – wysyłane tylko przy nawigacji domena pochodzenia → domena pochodzenia. Lax – wysyłane przy nawigacji obca domena → domena pochodzenia (GET, top-level). None – wysyłane w kontekście obca domena → domena pochodzenia we wszystkich typach zapytań, w tym JavaScript (fetch, XHR, iframe). Wymaga Secure=true czyli wymagany jest protokoł HTTPS',
-				DefaultDOM : 'Lax',
-				DefaultSite : 'Lax',
-				ValueType : 'string',
-				Options : {
+				else if(DOMObject.Type === 'container' ){
 					
-					List : ['None', 'Lax', 'Strict' ],
-					Default : 'Lax',
-					None : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'None',
-						Value : 'None',
-						ValueType : 'string',
-						TextContent : 'None'
-					},
-					Lax : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'Lax',
-						Value : 'Lax',
-						ValueType : 'string',
-						TextContent : 'Lax'
-					},
-					Strict : {
-						
-						List : ['Name', 'Value', 'TextContent' ],
-						Name : 'Strict',
-						Value : 'Strict',
-						ValueType : 'string',
-						TextContent : 'Strict'
-					}
-				},
-				Actions : {
+					const HtmlContainer = document.createElement(DOMObject.TagName );
 					
-					List : ['change' ],
-					Default : 'change',
-					change : function(RowId, Data, Element ){
-
-						if(DOM.setCookieSamesite(RowId, Data, Element.value ) ){
-
-							Element.style.borderColor = 'rgb(0 255 0 )';
+					DOMObject.ChildList.forEach((Child, index ) => {
+						
+						HtmlContainer.appendChild(DOM.OptionTypes.htmlCreateElement(RowId, DOMObject[Child ] ) );
+					} );
+					
+					DOMObject.PropertyList.forEach((PropertyName, index ) => {
+						
+						if(PropertyName === 'classList' ){
+							
+							HtmlContainer[PropertyName ].add(...DOMObject[PropertyName ] );
 						}
 						else{
-
-							Element.value = Data.Body[RowId ].Samesite;
-							Element.style.borderColor = 'rgb(255 0 0 )';
+							
+							HtmlContainer[PropertyName ] = DOMObject[PropertyName ];
+						}
+					} );
+					
+					if(Object.hasOwn(DOMObject, 'Action' ) ){
+						
+						DOMObject.Action.List.forEach((ActionName, index ) => {
+							
+							HtmlContainer.addEventListener(ActionName, function(){
+							
+								DOMObject.Action[ActionName ](RowId, this );
+							} );
+						} );
+						
+						if(Object.hasOwn(DOMObject.Action, 'Default' ) ){
+							
+							DOMObject.Action[DOMObject.Action['Default' ] ](RowId, HtmlContainer );
 						}
 					}
+					
+					return HtmlContainer;
 				}
-			},
-			Br : {
-				
-				Element : 'br',
-				Classes : 'BrOption',
-				DefaultDOM : undefined,
-				DefaultSite : undefined,
-				ValueType : undefined
+				else{
+					
+					throw new Error('Brak dopasowania Object.Type = '+DOMObject.Type );
+				}
+			}
+			else{
+
+				throw new Error('Nieprawidłowe argumenty ! RowId: '+RowId+', DOMObject: '+DOMObject );
 			}
 		}
 	};
@@ -1060,48 +2062,56 @@ class DOM{
 		return Array.from(EmptyArray, element => String[element % String.length ] ).join('' );
 	}
 
-	static checkReadDataTypeSelected(Data ){
+	static checkReadDataTypeSelected(){
 		
-		return Data.DataType;
+		return DOM.Data.DataType;
 	}
 	
-	static prepareDOMData(Data ){
+	static prepareDOMData(){
 
-		if(Data.Url && Data.DataType && Data.DataMethod ){
+		if(DOM.Data.Url && DOM.Data.DataType && DOM.Data.DataMethod ){
 			
 			const PreparedData = {
 		
-				Url: Data.Url,
-				DataType: Data.DataType,
-				DataMethod: Data.DataMethod,
+				Url: DOM.Data.Url,
+				DataType: DOM.Data.DataType,
+				DataMethod: DOM.Data.DataMethod,
 				Body: {}
 			};
 			
-			if(Object.keys(Data.Body ).length > 0 ){
+			if(Object.keys(DOM.Data.Body ).length > 0 ){
 
-				for( const RowId in Data.Body ){
+				for( const RowId in DOM.Data.Body ){
 					
-					if(Data.Body[RowId ].isFullyInitialized() ){
+					if(DOM.Data.Body[RowId ].isFullyInitialized() ){
 						
-						for( const RowKey in Data.Body[RowId ] ){
+						//Musi być to wszystko w tej pętli bo są warunki które zakończyły by przetwarzanie całego wiersza. A wiersz musi być CAŁY przetworzony
+						for( const RowKey in DOM.Data.Body[RowId ] ){
 							
-							if(Object.hasOwn(PreparedData.Body, Data.Body[RowId ].OptionType  ) ){
-
-								if(Object.hasOwn(PreparedData.Body[Data.Body[RowId ].OptionType ], Data.Body[RowId ].Name ) ){
+							//sprawdzam czy jest już obiekt o nazwie OptionType=wartość
+							const OptionTypeName = DOM.Data.Body[RowId ].OptionType;
+							
+							if(Object.hasOwn(PreparedData.Body, OptionTypeName  ) ){
+								
+								//sprawdzam czy jest już obiekt o Nazwie danej wartości lub ciągu wartości jak w przypadku ciasteczka
+								const Name = DOM.Data.Body[RowId ].Name;
+								
+								if(Object.hasOwn(PreparedData.Body[OptionTypeName ], Name ) ){
 									
-									if(RowKey !== 'Name' && RowKey !== 'OptionType' && RowKey !== Data.Body[RowId ].OptionType ){
+									//Musi byc ominięte, gdy w przeciwnym wypadku pojawią się te pola jeszcze raz zdublowane niżej
+									if(RowKey !== 'Name' && RowKey !== 'OptionType' ){
 										
-										PreparedData.Body[Data.Body[RowId ].OptionType ][Data.Body[RowId ].Name ][RowKey ] = Data.Body[RowId ][RowKey ];
+										PreparedData.Body[OptionTypeName ][Name ][RowKey ] = DOM.Data.Body[RowId ][RowKey ];
 									}
 								}
 								else{
 									
-									PreparedData.Body[Data.Body[RowId ].OptionType ][Data.Body[RowId ].Name ] = {};
+									PreparedData.Body[OptionTypeName ][Name ] = {};
 								}
 							}
 							else{
 								
-								PreparedData.Body[Data.Body[RowId ].OptionType ] = {};
+								PreparedData.Body[OptionTypeName ] = {};
 							}
 						}
 					}
@@ -1117,28 +2127,28 @@ class DOM{
 		}
 		else{
 			
-			alert('Brak niezbędnych danych, aby wykonać aby przygotować zapytanie !\nUrl: '+Data.Url+', DataType: '+Data.DataType+', DataMethod: '+Data.DataMethod );
-			throw new Error('Brak niezbędnych danych, aby wykonać aby przygotować zapytanie !\nUrl: '+Data.Url+', DataType: '+Data.DataType+', DataMethod: '+Data.DataMethod );
+			alert('Brak danych, aby wykonać zadanie !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
+			throw new Error('Brak danych, aby wykonać zadanie !\nUrl: '+DOM.Data.Url+', DataType: '+DOM.Data.DataType+', DataMethod: '+DOM.Data.DataMethod );
 		}
 	}
 	
-	static prepareRequest(Data ){
+	static prepareRequest(){
 		
-		return DOM.prepareDOMData(Data );
+		return DOM.prepareDOMData();
 	}
 	
 	
-	static setReadDataType(Data, Value ){
+	static setReadDataType(Value ){
 		
-		Data.DataType = Value;
+		DOM.Data.DataType = Value;
 	}
 	
-	static setReadDataMethod(Data, Value ){
+	static setReadDataMethod(Value ){
 		
-		Data.DataMethod = Value;
+		DOM.Data.DataMethod = Value;
 	}
 	
-	static setUrl(Data, Url ){
+	static setUrl(Url ){
 		
 		if(typeof Url === 'string' ){
 			
@@ -1146,31 +2156,31 @@ class DOM{
 			
 			if(DOM.RegExpUrl.test(Url ) ){
 				
-				Data.Url = Url;
+				DOM.Data.Url = Url;
 				return true;
 			}
 		}
 		
-		Data.Url = undefined;
+		DOM.Data.Url = undefined;
 		return false;
 	}
 
 
 
-	static makeRow(RowId, Data, OptionType ){
+	static makeDOMRow(RowId, OptionType ){
 		
 		if(typeof RowId === 'string' && typeof OptionType === 'string' && DOM.OptionTypes.List.includes(OptionType ) ){
 			
-			delete Data.Body[RowId ];
+			delete DOM.Data.Body[RowId ];
 			
-			Data.Body[RowId ] = {};
+			DOM.Data.Body[RowId ] = {};
 			
-			DOM.OptionTypes[OptionType ].List.forEach((element, index ) => {
+			DOM.OptionTypes[OptionType ].RowPropertyList.forEach((element, index ) => {
 				
-				Data.Body[RowId ][element ] = DOM.OptionTypes[OptionType ][element ].DefaultDOM;
+				DOM.Data.Body[RowId ][element ] = DOM.OptionTypes[OptionType ][element ].DefaultDOM;
 			} );
 			
-			Data.Body[RowId ].isFullyInitialized = function(){
+			DOM.Data.Body[RowId ].isFullyInitialized = function(){
 
 				for(const key in this ){
 					
@@ -1186,7 +2196,7 @@ class DOM{
 				return true;
 			};
 				
-			Data.Body[RowId ].isEmpty = function(){
+			DOM.Data.Body[RowId ].isEmpty = function(){
 
 				for(const key in this ){
 					
@@ -1202,25 +2212,31 @@ class DOM{
 				return true;
 			};
 			
-			Data.Body[RowId ].isExceptionalEmpty = function(Exception ){
+			DOM.Data.Body[RowId ].isExceptionalEmpty = function(Exception ){
 				
-				if(!Array.isArray(Exception ) ){
-					
-					Exception = [Exception ];
-				}
-				
-				for(const key in this ){
-					
-					if(Object.hasOwn(this, key ) && typeof this[key ] !== 'function' ){
+				if(Array.isArray(Exception ) ){
 
-						if(this[key] !== undefined ){
+					for(const key in this ){
+						
+						if(Object.hasOwn(this, key ) && typeof this[key ] !== 'function' ){
 
-							if(!Exception.includes(key ) ){
-								
-								return false;
+							if(this[key] !== undefined ){
+
+								if(!Exception.includes(key ) ){
+									
+									return false;
+								}
 							}
 						}
 					}
+				}
+				else if(typeof Exception === 'string' || !Exception ){
+					
+					return this.isExceptionalEmpty([Exception ] );
+				}
+				else{
+					
+					throw new Error('Złe argumenty ! Exception: '+Exception );
 				}
 				
 				return true;
@@ -1228,15 +2244,15 @@ class DOM{
 		}
 		else{
 			
-			throw new Error('Niudane utworzenie wiersza ! RowId: '+RowId+', OptionType: '+OptionType+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
+			throw new Error('Złe argumenty ! RowId: '+RowId+', OptionType: '+OptionType+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
 		}
 	}
 	
-	static removeRow(RowId, Data ){
+	static deleteDOMRow(RowId ){
 		
 		if(typeof RowId === 'string' ){
 			
-			delete Data.Body[RowId ];
+			delete DOM.Data.Body[RowId ];
 		}
 		else{
 			
@@ -1245,13 +2261,21 @@ class DOM{
 	}
 	
 	
-	static setOptionType(RowId, Data, OptionType = DOM.OptionTypes.Default ){
+	static setOptionType(RowId, OptionType ){
 		
-		DOM.makeRow(RowId, Data, OptionType );
-		Data.Body[RowId ].OptionType = OptionType;
+		if(typeof RowId === 'string' && typeof OptionType === 'string' && DOM.OptionTypes.List.includes(OptionType ) ){
+			
+			DOM.makeDOMRow(RowId, OptionType );
+			return true;
+		}
+		else{
+			
+			alert('Złe argumenty ! RowId: '+RowId+', OptionType: '+OptionType+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
+		}
+		return false;
 	}
 
-	static setName(RowId, Data, Name ){
+	static setName(RowId, Name ){
 		
 		if(typeof Name === 'string' ){
 			
@@ -1267,22 +2291,21 @@ class DOM{
 			}
 			else{
 				
-				Data.Body[RowId ].Name = Name;
+				DOM.Data.Body[RowId ].Name = Name;
 				return true;
 			}
 		}
-		
-		Data.Body[RowId ].Name = undefined;
+
 		return false;
 	}
 	
-	static setValue(RowId, Data, Value ){
+	static setValue(RowId, Value ){
 		
-		Data.Body[RowId ].Value = Value;
-
+		DOM.Data.Body[RowId ].Value = Value;
 		return true;
 	}
 	
+	/*nigdzie*/
 	static setHtmlElementValue(ElementId, String ){
 		
 		const Element = document.getElementById(ElementId );
@@ -1292,6 +2315,7 @@ class DOM{
 			if(typeof String === 'string' ){
 				
 				Element.value = String;
+				return true;
 			}
 			else{
 				
@@ -1302,9 +2326,10 @@ class DOM{
 				
 			throw new Error('Nie znaleziono elementu od podanym Id !\nWartość Id: '+ElementId );
 		}
+		return false;
 	}
 	
-	static setCookiePath(RowId, Data, Path ){
+	static setCookiePath(RowId, Path ){
 		
 		if(typeof Path === 'string' ){
 			
@@ -1320,16 +2345,15 @@ class DOM{
 			}
 			else{
 				
-				Data.Body[RowId ].Path = Path;
+				DOM.Data.Body[RowId ].Path = Path;
 				return true;
 			}
 		}
-		
-		Data.Body[RowId ].Path = undefined;
+
 		return false;
 	}
 	
-	static setCookieExpires(RowId, Data, Expires ){
+	static setCookieExpires(RowId, Expires ){
 
 		if(typeof Expires === 'string' ){
 		
@@ -1337,7 +2361,7 @@ class DOM{
 				
 			if(DOM.RegExpCookieExpires.test(Expires ) ){
 				
-				Data.Body[RowId ].Expires = Expires;
+				DOM.Data.Body[RowId ].Expires = Expires;
 				return true;
 			}
 			else{
@@ -1345,81 +2369,76 @@ class DOM{
 				alert('Wartość musi być liczbą >= 0 oznaczającą sekundy !' );
 			}
 		}
-		
-		Data.Body[RowId ].Expires = undefined;
+
 		return false;
 	}
 	
-	static setCookieDomain(RowId, Data, Domain ){
+	static setCookieDomain(RowId, Domain ){
 		
 		if(typeof Domain === 'string' ){
 			
 			Domain = Domain.trim();
 
-			Data.Body[RowId ].Domain = Domain;
+			DOM.Data.Body[RowId ].Domain = Domain;
 			return true;
 		}
-		
-		Data.Body[RowId ].Domain = undefined;
+
 		return false;
 	}
 	
-	static setCookieSecure(RowId, Data, Secure ){
+	static setCookieSecure(RowId, Secure ){
 		
-		if(typeof Secure === 'boolean' ){
+		if(typeof Secure === 'string' && Secure.trim() ){
 
-			Data.Body[RowId ].Secure = Secure;
-			return true;
-		}
-		else{
-			
-			alert('Wartość musi być typu boolean !' );
-		}
-
-		Data.Body[RowId ].Secure = undefined;
-		return false;
-	}
-	
-	static setCookieHttponly(RowId, Data, Httponly ){
-		
-		if(typeof Httponly === 'boolean' ){
-
-			Data.Body[RowId ].Httponly = Httponly;
+			DOM.Data.Body[RowId ].Secure = Secure.trim();
 			return true;
 		}
 		else{
 			
-			alert('Wartość musi być typu boolean !' );
+			alert('Zła wartość !' );
 		}
 
-		Data.Body[RowId ].Httponly = undefined;
 		return false;
 	}
 	
-	static setCookieSamesite(RowId, Data, Samesite ){
+	static setCookieHttponly(RowId, HttpOnly ){
+		
+		if(typeof HttpOnly === 'string' ){
 
-		if(typeof Samesite === 'string' ){
+			DOM.Data.Body[RowId ].HttpOnly = HttpOnly;
+			return true;
+		}
+		else{
 			
-			Samesite = Samesite.trim();
+			alert('Nieprawidłowa wartość !' );
+		}
+
+		return false;
+	}
+	
+	static setCookieSamesite(RowId, SameSite ){
+
+		if(typeof SameSite === 'string' ){
+			
+			SameSite = SameSite.trim();
 				
-			if(!Samesite ){
+			if(!SameSite ){
 				
 				alert('Wartość nie może być pusta !' );
 			}
 			else{
 				
-				Data.Body[RowId ].Samesite = Samesite;
+				DOM.Data.Body[RowId ].SameSite = SameSite;
 				return true;
 			}
 		}
-		
-		Data.Body[RowId ].Samesite = undefined;
+
 		return false;
 	}
 	
 	
 	
-	static htmlSettingInputs(SettingsBoxId, Data ){
+	static htmlSettingInputs(SettingsBoxId ){
 		
 		let SettingsBox = document.getElementById(SettingsBoxId );
 		
@@ -1447,13 +2466,13 @@ class DOM{
 				if(!index ){
 					
 					option.selected = true;
-					Data.DataType = element;
+					DOM.Data.DataType = element;
 				}
 				input.appendChild(option );
 			} );
 			input.addEventListener('change', function(){
 
-				DOM.setReadDataType(Data, this.value );
+				DOM.setReadDataType(this.value );
 			} );
 			div.appendChild(input );
 			
@@ -1474,13 +2493,13 @@ class DOM{
 				if(!index ){
 					
 					option.selected = true;
-					Data.DataMethod = element;
+					DOM.Data.DataMethod = element;
 				}
 				input.appendChild(option );
 			} );
 			input.addEventListener('change', function(){
 
-				DOM.setReadDataMethod(Data, this.value );
+				DOM.setReadDataMethod(this.value );
 			} );
 			div.appendChild(input );
 
@@ -1493,7 +2512,7 @@ class DOM{
 		}
 	}
 	
-	static htmlUrlInput(InputsBoxId, Data ){
+	static htmlUrlInput(InputsBoxId ){
 		
 		let InputsBox = document.getElementById(InputsBoxId );
 		
@@ -1505,11 +2524,11 @@ class DOM{
 			textarea.rows = 2;
 			textarea.cols = 60;
 			textarea.required = true;
-			textarea.classList.add('url' );
+			textarea.classList.add('Url' );
 			textarea.title = 'Wprowadź prawidłowy adres URL, do odczytu danych';
 			textarea.addEventListener('blur', function(){
 
-				if(DOM.setUrl(Data, this.value ) ){
+				if(DOM.setUrl(this.value ) ){
 
 					this.style.borderColor = 'rgb(0 255 0 )';
 				}
@@ -1545,345 +2564,79 @@ class DOM{
 	}
 	
 	/*tworzy wiersz opcji w dokumencie oraz w drzewie DOM*/
-	static htmlAddRow(BoxId, RowId, Data, OptionType = 'GET' ){
+	static htmlAddRow(BoxId, RowId, OptionType ){
+
+		if(typeof BoxId === 'string' && typeof RowId === 'string' && typeof OptionType === 'string' && Object.hasOwn(DOM.Data.Body, RowId ) && DOM.OptionTypes.List.includes(OptionType ) ){
 		
-		OptionType = OptionType??DOM.OptionTypes.Default;
+			const TdBox = document.getElementById(BoxId );
 		
-		const TdBox = document.getElementById(BoxId );
-		
-		if(TdBox ){
+			if(TdBox ){
 
-			const OptionsDiv = document.createElement('div' );
-			OptionsDiv.classList.add('OptionsDiv' );
-
-			DOM.OptionTypes[OptionType ].HtmlElementList.forEach((OptionName, index ) => {
-
-				if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'input' ){
-
-					const input = document.createElement('input' );
-					input.type = DOM.OptionTypes[OptionType ][OptionName ].Type;
-					input.name = DOM.OptionTypes[OptionType ][OptionName ].Name;
-					input.size = DOM.OptionTypes[OptionType ][OptionName ].Size;
-					input.required = DOM.OptionTypes[OptionType ][OptionName ].Required;
-					input.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					input.title = DOM.OptionTypes[OptionType ][OptionName ].Title;
+				if(DOM.OptionTypes[OptionType ].Html.Type === 'start' ){
 					
-					DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
-						
-						input.addEventListener(ActionName, function(){
-							
-							DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-						} );
+					const RowDiv = document.createElement('div' );
+					RowDiv.id = RowId;
+					RowDiv.name = 'PropertyRow';
+					RowDiv.classList.add('RowDiv' );
+					
+					DOM.OptionTypes[OptionType ].Html.ChildList.forEach((Child, index ) => {
+
+						RowDiv.appendChild(DOM.OptionTypes.htmlCreateElement(RowId, DOM.OptionTypes[OptionType ].Html[Child ] ) );
 					} );
 					
-					const label = document.createElement('label' );
-					label.textContent = DOM.OptionTypes[OptionType ][OptionName ].Label;
-					label.classList.add('OptionLabel' );
-					label.appendChild(input );
-					
-					OptionsDiv.appendChild(label );
-				}
-				else if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'select' ){
-
-					const select = document.createElement('select' );
-					select.name = DOM.OptionTypes[OptionType ][OptionName ].Name;
-					select.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					select.title = DOM.OptionTypes[OptionType ][OptionName ].Title;
-					
-					DOM.OptionTypes[OptionType ][OptionName ].Options.List.forEach((element, index ) => {
-				
-						const option = document.createElement('option' );
-						option.name = DOM.OptionTypes[OptionType ][OptionName ].Options[element ].Name;
-						option.value = DOM.OptionTypes[OptionType ][OptionName ].Options[element ].Value;
-						option.textContent = DOM.OptionTypes[OptionType ][OptionName ].Options[element ].TextContent;
-
-						select.appendChild(option );
-					} );
-
-					select.value = DOM.OptionTypes[OptionType ][OptionName ].Options.Default;
-					
-					DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
-						
-						select.addEventListener(ActionName, function(){
-							
-							DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-						} );
-					} );
-					
-					const label = document.createElement('label' );
-					label.textContent = DOM.OptionTypes[OptionType ][OptionName ].Label;
-					label.classList.add('OptionLabel' );
-					label.appendChild(select );
-					
-					OptionsDiv.appendChild(label );
-				}
-				else if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'textarea' ){
-					
-					const textarea = document.createElement('textarea' );
-					textarea.name = DOM.OptionTypes[OptionType ][OptionName ].Name;
-					textarea.rows = DOM.OptionTypes[OptionType ][OptionName ].Rows;
-					textarea.cols = DOM.OptionTypes[OptionType ][OptionName ].Cols;
-					textarea.required = DOM.OptionTypes[OptionType ][OptionName ].Required;
-					textarea.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					textarea.title = DOM.OptionTypes[OptionType ][OptionName ].Title;
-					
-					DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
-						
-						textarea.addEventListener(ActionName, function(){
-							
-							DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-						} );
-					} );
-					
-					const label = document.createElement('label' );
-					label.textContent = DOM.OptionTypes[OptionType ][OptionName ].Label;
-					label.classList.add('TextareaOptionLabel' );
-					label.appendChild(textarea );
-					
-					OptionsDiv.appendChild(label );
-				}
-				else if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'button' ){
-					
-					const button = document.createElement('button' );
-					button.type = DOM.OptionTypes[OptionType ][OptionName ].Type;
-					button.name = DOM.OptionTypes[OptionType ][OptionName ].Name;
-					button.textContent = DOM.OptionTypes[OptionType ][OptionName ].TextContent;
-					button.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					button.title = DOM.OptionTypes[OptionType ][OptionName ].Title;
-					
-					DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
-						
-						button.addEventListener(ActionName, function(){
-							
-							DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-						} );
-					} );
-					
-					OptionsDiv.appendChild(button );
-				}
-				else if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'div' ){
-					
-					const div = document.createElement('div' );
-					div.name = DOM.OptionTypes[OptionType ][OptionName ].Name;
-					div.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					div.title = DOM.OptionTypes[OptionType ][OptionName ].Title;
-					
-					if(Object.hasOwn(DOM.OptionTypes[OptionType ][OptionName ], 'Actions' ) ){
-						
-						DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
-							
-							div.addEventListener(ActionName, function(){
-								
-								DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-							} );
-						} );
-					}
-					
-					OptionsDiv.appendChild(div );
+					TdBox.appendChild(RowDiv );
 				}
 				else{
-					
-					throw new Error('Brak dopasowania !\nWartość: '+DOM.OptionTypes[OptionType ][OptionName ].Element );
+
+					throw new Error('Nieprawidłowy obiekt !\nId: '+DOM.OptionTypes[OptionType ].Html.Type );
 				}
-			} );
+			}
+			else{
 
-			const button = document.createElement('button' );
-			button.type = 'button';
-			button.name = 'RemoveRow';
-			button.textContent = 'Usuń';
-			button.title = 'Usuń cały wiersz';
-			button.addEventListener('click', function(){
-				
-				DOM.removeRow(RowId, Data );
-				
-				TdBox.removeChild(RowDiv );
-			} );
-
-			const RemoveDiv = document.createElement('div' );
-			RemoveDiv.classList.add('RemoveDiv' );
-			RemoveDiv.appendChild(button );
-
-			const RowDiv = document.createElement('div' );
-			RowDiv.id = RowId;
-			RowDiv.classList.add('RowDiv' );
-			
-			RowDiv.append(OptionsDiv, RemoveDiv );
-
-			TdBox.appendChild(RowDiv );
+				throw new Error('Nie znaleziono elementu !\nId: '+BoxId );
+			}
 		}
 		else{
-
-			throw new Error('Nie znaleziono komórki tabeli o danym Id !\nWartość Id: '+BoxId );
+			
+			throw new Error('Złe argumenty ! BoxId: '+BoxId+', RowId: '+RowId+', OptionType: '+OptionType+', Object.hasOwn(DOM.Data.Body, RowId ): '+Object.hasOwn(DOM.Data.Body, RowId )+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
 		}
 	}
 	
 	/*zmienia zawartość wiersza opcji oraz w drzewie dokumentu DOM*/
-	static htmlChangeRow(RowId, Data, OptionType = 'GET' ){
+	static htmlChangeRow(RowId, OptionType ){
 		
-		OptionType = OptionType??DOM.OptionTypes.Default;
+		if(typeof RowId === 'string' && typeof OptionType === 'string' && Object.hasOwn(DOM.Data.Body, RowId ) && DOM.OptionTypes.List.includes(OptionType ) ){
 		
-		const RowDiv = document.getElementById(RowId );
+			const RowDiv = document.getElementById(RowId );
 		
-		if(RowDiv ){
-
-			const OptionsDiv = document.createElement('div' );
-			OptionsDiv.classList.add('OptionsDiv' );
-
-			DOM.OptionTypes[OptionType ].HtmlElementList.forEach((OptionName, index ) => {
-
-				if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'input' ){
-
-					const input = document.createElement('input' );
-					input.type = DOM.OptionTypes[OptionType ][OptionName ].Type;
-					input.name = DOM.OptionTypes[OptionType ][OptionName ].Name;
-					input.size = DOM.OptionTypes[OptionType ][OptionName ].Size;
-					input.required = DOM.OptionTypes[OptionType ][OptionName ].Required;
-					input.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					input.title = DOM.OptionTypes[OptionType ][OptionName ].Title;
-					
-					DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
-						
-						input.addEventListener(ActionName, function(){
-							
-							DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-						} );
-					} );
-					
-					const label = document.createElement('label' );
-					label.textContent = DOM.OptionTypes[OptionType ][OptionName ].Label;
-					label.classList.add('OptionLabel' );
-					label.appendChild(input );
-					
-					OptionsDiv.appendChild(label );
-				}
-				else if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'select' ){
-
-					const select = document.createElement('select' );
-					select.name = DOM.OptionTypes[OptionType ][OptionName ].Name;
-					select.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					select.title = DOM.OptionTypes[OptionType ][OptionName ].Title;
-					
-					DOM.OptionTypes[OptionType ][OptionName ].Options.List.forEach((element, index ) => {
+			if(RowDiv ){
 				
-						const option = document.createElement('option' );
-						option.name = DOM.OptionTypes[OptionType ][OptionName ].Options[element ].Name;
-						option.value = DOM.OptionTypes[OptionType ][OptionName ].Options[element ].Value;
-						option.textContent = DOM.OptionTypes[OptionType ][OptionName ].Options[element ].TextContent;
+				if(DOM.OptionTypes[OptionType ].Html.Type === 'start' ){
+					
+					RowDiv.replaceChildren();
 
-						select.appendChild(option );
-					} );
-					
-					select.value = DOM.OptionTypes[OptionType ][OptionName ].Options.Default;
-
-					DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
+					DOM.OptionTypes[OptionType ].Html.ChildList.forEach((Child, index ) => {
 						
-						select.addEventListener(ActionName, function(){
-							
-							DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-						} );
+						RowDiv.appendChild(DOM.OptionTypes.htmlCreateElement(RowId, DOM.OptionTypes[OptionType ].Html[Child ] ) );
 					} );
-					
-					const label = document.createElement('label' );
-					label.textContent = DOM.OptionTypes[OptionType ][OptionName ].Label;
-					label.classList.add('OptionLabel' );
-					label.appendChild(select );
-					
-					OptionsDiv.appendChild(label );
-				}
-				else if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'textarea' ){
-					
-					const textarea = document.createElement('textarea' );
-					textarea.name = DOM.OptionTypes[OptionType ][OptionName ].Name;
-					textarea.rows = DOM.OptionTypes[OptionType ][OptionName ].Rows;
-					textarea.cols = DOM.OptionTypes[OptionType ][OptionName ].Cols;
-					textarea.required = DOM.OptionTypes[OptionType ][OptionName ].Required;
-					textarea.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					textarea.title = DOM.OptionTypes[OptionType ][OptionName ].Title;
-					
-					DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
-						
-						textarea.addEventListener(ActionName, function(){
-							
-							DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-						} );
-					} );
-					
-					const label = document.createElement('label' );
-					label.textContent = DOM.OptionTypes[OptionType ][OptionName ].Name + ':';
-					label.classList.add('TextareaOptionLabel' );
-					label.appendChild(textarea );
-					
-					OptionsDiv.appendChild(label );
-				}
-				else if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'button' ){
-					
-					const button = document.createElement('button' );
-					button.type = DOM.OptionTypes[OptionType ][OptionName ].Type;
-					button.name = DOM.OptionTypes[OptionType ][OptionName ].Name;
-					button.textContent = DOM.OptionTypes[OptionType ][OptionName ].TextContent;
-					button.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					button.title = DOM.OptionTypes[OptionType ][OptionName ].Title;
-					
-					DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
-						
-						button.addEventListener(ActionName, function(){
-							
-							DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-						} );
-					} );
-
-					OptionsDiv.appendChild(button );
-				}
-				else if(DOM.OptionTypes[OptionType ][OptionName ].Element === 'br' ){
-					
-					const br = document.createElement('br' );
-					br.classList.add(DOM.OptionTypes[OptionType ][OptionName ].Classes );
-					
-					if(Object.hasOwn(DOM.OptionTypes[OptionType ][OptionName ], 'Actions' ) ){
-						
-						DOM.OptionTypes[OptionType ][OptionName ].Actions.List.forEach((ActionName, index ) => {
-							
-							br.addEventListener(ActionName, function(){
-								
-								DOM.OptionTypes[OptionType ][OptionName ].Actions[ActionName ](RowId, Data, this );
-							} );
-						} );
-					}
-
-					OptionsDiv.appendChild(br );
 				}
 				else{
-					
-					throw new Error('Brak dopasowania !\nWartość: '+DOM.OptionTypes[OptionType ][OptionName ].Element );
+
+					throw new Error('Nieprawidłowy obiekt !\nId: '+DOM.OptionTypes[OptionType ].Html.Type );
 				}
-			} );
+			}
+			else{
 
-			const button = document.createElement('button' );
-			button.type = 'button';
-			button.name = 'RemoveRow';
-			button.textContent = 'Usuń';
-			button.title = 'Usuń cały wiersz';
-			button.addEventListener('click', function(){
-				
-				DOM.removeRow(RowId, Data );
-				
-				RowDiv.remove();
-			} );
-
-			const RemoveDiv = document.createElement('div' );
-			RemoveDiv.classList.add('RemoveDiv' );
-			RemoveDiv.appendChild(button );
-
-			RowDiv.replaceChildren(OptionsDiv, RemoveDiv );
+				throw new Error('Nie znaleziono elementu !\nId: '+RowId );
+			}
 		}
 		else{
-
-			throw new Error('Nie znaleziono wiersza DIV o danym Id !\nWartość Id: '+RowId );
+			
+			throw new Error('Złe argumenty ! RowId: '+RowId+', OptionType: '+OptionType+', Object.hasOwn(DOM.Data.Body, RowId ): '+Object.hasOwn(DOM.Data.Body, RowId )+', Includes: '+DOM.OptionTypes.List.includes(OptionType ) );
 		}
 	}
 
-	
-	
+	/*wycofane wymagające dopasowania do filozofi*/
 	static htmlShowJSONInWindowByBlob(JSONData, Title = 'Dane w formacie JSON' ){
 		
 		let ParsedJSONData;
@@ -1937,9 +2690,10 @@ class DOM{
 		} );
 	}
 	
-	static async showFetchRequest(DataType, Data ){
+	/*niejasne argumenty*/
+	static async showFetchRequest(DataType ){
 
-		const PreparedData = DOM.prepareRequest(Data );
+		const PreparedData = DOM.prepareRequest();
 
 		if(DataType === 'JSON' ){
 			
@@ -1957,39 +2711,44 @@ class DOM{
 
 	static asyncFetchRequest(Url, Data ){
 		
-		JSON.stringify( Data );
-
-		return fetch(
-		
-			Url,
-			{
-				method: 'POST',
-				cache: 'reload',
-				credentials: 'same-origin',//domyślne ustawinie zezwolenia wysyłania ciasteczek
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify( Data )
-			}
-		).then(Response => {
-				
-			return Response.text().then(text =>
+		if(typeof Url === 'string' && typeof Data === 'object' ){
 			
-				text
-			).catch(error => {
+			return fetch(
+			
+				Url,
+				{
+					method: 'POST',
+					cache: 'reload',
+					credentials: 'same-origin',//domyślne ustawinie zezwolenia wysyłania ciasteczek
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(Data )
+				}
+			).then(Response => {
+					
+				return Response.text().then(text =>
 				
-				const NewError = new Error('Błąd parsowania danych do tekstu !' );
+					text
+				).catch(error => {
+					
+					const NewError = new Error('Błąd parsowania danych do tekstu !' );
+					NewError.detail = error.message;
+					throw NewError;
+
+				} );
+				
+			}).catch(error => {
+					
+				const NewError = new Error('Błąd zapytania sieciowego fetch !' );
 				NewError.detail = error.message;
 				throw NewError;
 
 			} );
-			
-		}).catch(error => {
-				
-			const NewError = new Error('Błąd zapytania sieciowego fetch !' );
-			NewError.detail = error.message;
-			throw NewError;
+		}
+		else{
 
-		} );
+			throw new Error('Złe argumenty ! Url: '+Url+', Data: '+Data );
+		}
 	}
 }
