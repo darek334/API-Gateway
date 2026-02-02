@@ -303,15 +303,40 @@ final class CurlInterface
 		
 		$CurlOption = [];
 		
-		foreach($this->CURL_OPTION as $key => $value ){
+		foreach($this->CURL_OPTION as $CurlOptionName => $CurlOptionValue ){
 			
-			if(isset(self::CURL_OPTIONS_MAP[$key ] ) ){
+			if(isset(self::CURL_OPTIONS_MAP[$CurlOptionName ] ) ){
 				
-				$CurlOption[self::CURL_OPTIONS_MAP[$key ] ] = $value;
+				$CurlOptionValue = $this->validateCURLOption($CurlOptionValue );
+				
+				if($CurlOptionValue !== null ){
+				
+					$CurlOption[self::CURL_OPTIONS_MAP[$CurlOptionName ] ] = $CurlOptionValue;
+				}
 			}
 		}
 			
 		return self::INTERNAL_CURL_OPTION + $CurlOption;
+	}
+	
+	public function validateCURLOption(string $CURLOption ): bool|int|null{
+		
+		$CURLOption = strtolower(trim($CURLOption ) );
+
+		if($CURLOption === 'true'){
+			
+			return true;
+		}
+		else if($CURLOption === 'false'){
+			
+			return false;
+		}
+		else if(preg_match('/^\d+$/', $CURLOption ) ){
+			
+			return (int)$CURLOption;
+		}
+
+		return null;
 	}
 
 	/**/
