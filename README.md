@@ -1,13 +1,16 @@
-# API-Gateway
+# HTTP Proxy Gateway
 
-Aplikacja typu API Gateway, wykorzystująca przeglądarki internetowe jako interfejs udostępniająca odczyt danych JSON z udostępnionych publicznie adresów URL, poprzez wysyłanie zapytań HTTP. Wykorzystująca wszystkie możliwe metody: GET, POST, nagłówki HTTP, ciasteczka, oraz zmienne cURL. Dane wysylane są do przeglądarki w formie JSON.
+Aplikacja typu HTTP Proxy Gateway, pośrednicząca w komunikacji HTTP ze zdalnym adresem URL. Wykorzystująca jako interfejs graficzny przeglądarkę internetowa jako klienta do komunikacji z bramą. Brama pośredniczy w ustawieniach żądania HTTP i oferuje wszystkie typy ustawień, powszechnie znane w tej komunikacji. Brama pozwala na odczyt danych w formacie JSON, przekazywanych przez zdalny adres URL w uporządkowanej formie, wraz z informacjami na temat całego procesu żądania, podzielonego na trzy sekcje:
+* rzeczywiste dane konfiguracyjne żądania HTTP, otrzymane od klienta - sparsowane i sformatowane przez skrypty PHP na serwerze bramy
+* informacje zwrotne dotyczące reakcji zdalnego serwera na żądanie HTTP
+* rzeczywiste dane udzielone przez zdalny serwer będące wynikiem żądania HTTP
 
-## Charakterystyka : 
+## Charakterystyka - Możliwości: 
 
-Każda podstrona służąca jako brama API będzie wstępnie zabezpieczona ustawieniem Preflight :
+1. Wstępna negocjacja z przeglądarką użytkownika tzw Preflight po stromnie bramy za pomocą żądań HTTP:
 
     //Zezwolenie na komunikację tylko wtedy jeśli przeglądarka używa odnośnika pochodzącego z simplefilter.eu
-    //Jeśli, zapytanie będzie pochodziło z innego źródła strony. Przegląarka zgodnie z zasadmi CORS zablokuje komunikację
+    //Jeśli, zapytanie będzie pochodziło z innego źródła strony. Przeglądarka zgodnie z zasadami CORS zablokuje komunikację
 	header('Access-Control-Allow-Origin: https://simplefilter.eu' );
   
 	//podstrona zezwala na przesyłania ciasteczek
@@ -18,10 +21,13 @@ Każda podstrona służąca jako brama API będzie wstępnie zabezpieczona ustaw
   
 	//zezwolenie przesłanie danych w nagłówku typu JSON
 	header('Access-Control-Allow-Headers: Content-Type' );
-    
-1. Odebranie danych JSON w nagłówku od klienta
-2. Konfiguracja zapytania cURL np:
 
+2. Konfiguracja podstrony za pomocą żądań HTTP po stronie bramy
+3. Konfiguracja typu danych oczekiwanych przez użytkownika ze zdalnego adresu URL za pomocą żądania HTTP
+4. Ustawienie metody żądania HTTP:
+    * GET
+    * POST
+5. Konfiguracja modułu cURL np:
    * // === Identyfikacja ===
    * 'CURLOPT_USERAGENT'      => CURLOPT_USERAGENT,
    * // === Metody / request ===
@@ -42,15 +48,13 @@ Każda podstrona służąca jako brama API będzie wstępnie zabezpieczona ustaw
    * // === Debug / info ===
    * 'CURLOPT_HEADER'         => CURLOPT_HEADER,
    * //'CURLOPT_VERBOSE'        => CURLOPT_VERBOSE, // tylko do testów, nie do normalnego API., może: zepsuć output pomieszać JSON
-  
-3. Konfiguracja nagłówków HTTP
+6. Konfiguracja nagłówków HTTP
     * Wszystkie możliwe nagłówki
-5. Wstawienie danych do POST
-6. Ustawenie argumentów POST
-7. Ustawienie ciasteczek
-8. Ustawienie argumentów GET
-9. Informacja odpowiedzi podzielona na 3 sekcje - trzy funkcje połączone w jedno:
+7. Konfiguracja POST BODY w przypadku żądania typu POST - ale nie jest to ograniczenie
+8. Konfiguracja ciasteczek - cookies
+9. Konfiguracja argumentów GET
+10. Konfiguracja danych odpowiedzi przez bramę podzielona na 3 sekcje:
 
-   9. Rzeczywista konfiguracja zapytania po obróbce przez Bramę
-   10. Informację zwrotne nagłówków odpytanego zdresu URL
-   11. Dane otrzymane z serwera ewentualnie informacja o błędzie
+   1. Rzeczywista konfiguracja zapytania po obróbce przez Bramę
+   2. Informacja zwrotna o przebiegu komunikacji HTTP ze zdalnym URL
+   3. Dane otrzymane z serwera ewentualnie informacja o błędzie
