@@ -1,6 +1,6 @@
 # HTTP Proxy Gateway
 
-Aplikacja typu HTTP Proxy Gateway, pośrednicząca w komunikacji HTTP ze zdalnym adresem URL. Wykorzystująca jako interfejs graficzny przeglądarkę internetowa jako klienta do komunikacji z bramą. Brama pośredniczy w ustawieniach żądania HTTP i oferuje wszystkie typy ustawień, powszechnie znane w tej komunikacji. Brama pozwala na odczyt danych w formacie JSON, przekazywanych przez zdalny adres URL w uporządkowanej formie, wraz z informacjami na temat całego procesu żądania, podzielonego na trzy sekcje:
+Brama API typu HTTP Proxy Gateway, pośrednicząca w komunikacji HTTP ze zdalnym adresem URL. Komunikacja z bramą może odbywać się pomiędzy serwerami, serwer - serwer, albo przeglądarka - serwer. Brama pośredniczy w ustawieniach żądania HTTP i oferuje wszystkie typy powszechnie znanych ustawień. Udostępnia odczyt danych w formacie JSON w uporządkowanej formie, wraz z informacjami na temat całego procesu żądania, podzielonego na trzy sekcje:
 * rzeczywiste dane konfiguracyjne żądania HTTP, otrzymane od klienta - sparsowane i sformatowane przez skrypty PHP na serwerze bramy
 * informacje zwrotne dotyczące reakcji zdalnego serwera na żądanie HTTP
 * rzeczywiste dane udzielone przez zdalny serwer będące wynikiem żądania HTTP
