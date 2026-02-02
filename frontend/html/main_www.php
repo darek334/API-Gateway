@@ -3,21 +3,29 @@ $main_www =
 '<!DOCTYPE html>
 <html lang="pl">
 	<head>
-		<title>Brama do odczytu danych</title>
-		
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+		<meta charset="utf-8">
+		<title>HTTP Proxy Gateway</title>
 		<meta name="subject" content="MANS - Wstęp do Programowania Obiektowego">
 		<meta name="author" content="Dariusz Bodzęta, Michał Pudzianowski, darek334@gazeta.pl">
-		<meta name="category" content="studia, study">
-		<meta name="description" content="HTTP API Gateway - Brama do odczytu danych">
+		<meta name="purpose" content="academic student project">
+		<meta name="description" content="HTTP Proxy Gateway - Internetowa usługa do odczytu danych">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
 		<link rel="icon" type="image/png" href="image/mans_logo.png" >
 		
 		<link rel="stylesheet" href="css/css.css">
 		
 		<script src="js/DOM.js" ></script>
+		<script src="js/konstelacja_background.js" ></script>
 	</head>
 	<body>
+		<canvas id="stars"></canvas>
+		<script>
+			runBackground();
+		</script>
 		<table class="main" >
 			<tr>
 				<th >
@@ -26,7 +34,7 @@ $main_www =
 							<a href="https://mans.org.pl" target="_blank"><img class="mans-logo" src="image/mans_logo.png"></a>
 						</div>
 						<div class="HeadTitleDiv" >
-							HTTP API Gateway - Portal do odczytu danych
+							HTTP Proxy Gateway - Portal do Odczytu Danych
 						</div>
 					</div>
 				</th>
@@ -50,25 +58,25 @@ $main_www =
 			</tr>
 			<tr>
 				<td id="CheckButtonsTdId" >
-					<div class="StopkaDiv" >
+					<div >
 						<span>Akcje: </span><button type="button" title="Dodaj kolejny wiersz" onclick = "const RowId = DOM.makeRandomString();
 					DOM.setOptionType(RowId, \'GET\' );DOM.htmlAddRow(\'InputsBoxId\', RowId, \'GET\' )">Dodaj Wiersz</button>
 					
 						<button type="button" title="Pokaż niesformatowane dane" onclick = "DOM.htmlJSONWindow(\'html/DOM_data_view_window.html\', DOM.Data, \'Obecna Struktura Danych DOM\' )">Pokaż Dane</button>
 						
-						<button type="button" title="Otwórz nowe okno z gotowymi danymi do wykonania zadania" onclick = "DOM.htmlJSONWindow(\'html/json_request_window.html\', DOM.prepareDOMData(), \'Wyślij zapytanie JSON\' )">Przygotuj</button>
+						<button type="button" title="Otwórz nowe okno z gotowymi danymi do wykonania zadania" onclick = "DOM.Data.DataType === \'JSON\'?DOM.htmlJSONWindow(\'html/json_request_window.html\', DOM.prepareDOMData(), \'Wyślij żądanie JSON\' ):alert(\'Odczyt MySQL jest niedostępny\nPrzestaw Typ Danych na: JSON\')">Przygotuj</button>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div class="StopkaDiv" >
-						<details class="CenterTextDetails">
+					<div class="TextDiv">
+						<details class="TextDetails">
 							<summary class="TitleSummary">
 								Opis działania i konfiguracji strony
 							</summary>
 							<div class="TextDiv">
-								Strona umożliwia wykonanie skonfigurowanego zdalnego zapytania HTTP za pośrednictwem bramy pośredniczącej. Minimalnym wymogiem do wykonania zapytania jest podanie adresu URL w polu „Adres URL”. Użytkownik ma możliwość skonfigurowania wielu aspektów zapytania HTTP, w tym parametrów wejściowych oraz ustawień technicznych po stronie serwera. W polu „Typ” można określić pięć głównych kategorii parametrów występujących w zapytaniu HTTP:
+								Strona umożliwia skonfigurowanie żądania HTTP. Minimalnym wymogiem do wykonania żądania, jest wprowadzenie adresu URL w polu „Adres URL”. Użytkownik może ustawić wiele parametrów. W polu „Typ” można wybrać pięć głównych typów konfiguracji żądania HTTP:
 								<ul>
 									<li>
 										parametry GET,
@@ -93,19 +101,19 @@ $main_www =
 								Moduł cURL – rola i możliwości
 							</summary>
 							<div class="TextDiv">
-								Moduł cURL (Client URL Library) jest biblioteką umożliwiającą wykonywanie zapytań HTTP oraz HTTPS po stronie serwera, niezależnie od przeglądarki użytkownika. W kontekście tej aplikacji cURL pełni rolę pośrednika komunikacji pomiędzy użytkownikiem a zdalnym serwisem. Za pomocą cURL możliwe jest m.in.:
+								Moduł cURL (Client URL Library) jest biblioteką umożliwiającą wykonywanie żądań HTTP oraz HTTPS po stronie serwera, niezależnie od przeglądarki użytkownika. W kontekście tej aplikacji cURL pełni rolę pośrednika komunikacji pomiędzy użytkownikiem a zdalnym serwisem. Za pomocą cURL możliwe jest m.in.:
 								<ul>
 									<li>
-										wykonywanie zapytań HTTP metodami GET, POST, PUT, DELETE i innymi,
+										wykonywanie żądań HTTP metodami GET, POST, PUT, DELETE i innymi,
 									</li>
 									<li>
 										wysyłanie niestandardowych nagłówków HTTP (np. Authorization, Accept, Content-Type),
 									</li>
 									<li>
-										przesyłanie danych w formatach takich jak application/json, application/x-www-form-urlencoded czy multipart/form-data,
+										przesyłanie danych w formatach takich jak application/json, application/x-www-form-urlencoded, czy multipart/form-data,
 									</li>
 									<li>
-										obsługa plików cookies (wysyłanie i odbieranie),
+										obsługa plików cookies - wysyłanych do zdalnego adresu URL, oraz ich odbieranie,
 									</li>
 									<li>
 										kontrola zachowania połączenia (timeout, redirecty, SSL, user-agent),
@@ -114,18 +122,21 @@ $main_www =
 										odbieranie pełnej odpowiedzi serwera (nagłówki + body).
 									</li>
 								</ul>
-								cURL nie jest przeglądarką internetową – nie interpretuje HTML, nie wykonuje JavaScriptu, nie renderuje CSS i nie utrzymuje interaktywnej sesji użytkownika w sposób charakterystyczny dla przeglądarek.
+								cURL nie jest przeglądarką internetową – nie interpretuje HTML, nie wykonuje JavaScriptu, nie renderuje CSS i nie utrzymuje interaktywnej sesji użytkownika w sposób charakterystyczny dla przeglądarek. Jednak adalny serwer otrzymujący żądanie HTTP musi odpowiedzieć tak jakby była to standardowa komunikacja użytkownika za pomocą przeglądarki internetowej. Na dzień dzisiajszy dane umieszczane są w formacie JSON.
 							</div>
 						</details>
 						<details class="TextDetails">
 							<summary class="TitleSummary">
-								CORS a zapytania przez bramę
+								CORS a żądania HTTP przez bramę
 							</summary>
 							<div class="TextDiv">
-								Zasady CORS (Cross-Origin Resource Sharing) obowiązują wyłącznie po stronie przeglądarki. Zapytania wykonywane przez cURL nie podlegają ograniczeniom CORS, ponieważ są realizowane po stronie serwera. Oznacza to, że:
+								Zasady CORS (Cross-Origin Resource Sharing) obowiązują wyłącznie po stronie przeglądarki. Żądania wykonywane przez cURL nie podlegają ograniczeniom CORS, ponieważ są realizowane po stronie serwera. Oznacza to, że:
 								<ul>
 									<li>
-										brama może wysyłać zapytania do dowolnych domen,
+										brama wykonuje żądania HTTP do dowolnych domen,
+									</li>
+									<li>
+										brama może przeslać w kierunku domeny dowolne wpisane ciasteczko,
 									</li>
 									<li>
 										odpowiedzi nie są blokowane przez politykę same-origin,
@@ -134,7 +145,7 @@ $main_www =
 										nagłówki takie jak Access-Control-Allow-Origin nie mają znaczenia dla samego cURL.
 									</li>
 								</ul>
-								Należy jednak zaznaczyć, że obejście CORS nie oznacza obejścia zabezpieczeń aplikacji docelowej. Serwisy mogą stosować dodatkowe mechanizmy ochronne, takie jak tokeny, podpisy żądań, limity IP czy weryfikację nagłówków.
+								Należy jednak zaznaczyć, że obejście CORS nie oznacza obejścia zabezpieczeń aplikacji docelowej. Serwisy mogą stosować dodatkowe mechanizmy ochronne, takie jak tokeny, podpisy żądań HTTP, limity IP czy weryfikację nagłówków.
 							</div>
 						</details>
 						<details class="TextDetails">
@@ -178,7 +189,7 @@ $main_www =
 										uzyskana odpowiedź może być jedynie „lustrzanym odbiciem” strony dostępnej po uwierzytelnieniu.
 									</li>
 								</ul>
-								Ze względu na pośrednictwo bramy, pełne odwzorowanie zachowania przeglądarki w kontekście sesji jest procesem złożonym i w praktyce ograniczonym.
+								Należy jednak zaznaczyć, że mimo możliwości przesłania ciasteczka za pośrednictwem bramy, taka komunikacja ma charakter jednorazowy i nie jest utrzymywana w sposób ciągły. Użytkownik, który otrzymuje dane będące wynikiem użycia przekazanego ciasteczka, nie ma możliwości dalszego kontynuowania tej komunikacji bezpośrednio w swojej przeglądarce. Wynika to z faktu, że ciasteczko nie jest zapisywane w przeglądarce użytkownika, co jest konsekwencją obowiązujących mechanizmów bezpieczeństwa, w szczególności zasad CORS.
 							</div>
 						</details>
 						<details class="TextDetails">
@@ -192,10 +203,10 @@ $main_www =
 										nagłówki Authorization (np. Bearer Token),
 									</li>
 									<li>
-										klucze API przekazywane w nagłówkach lub parametrach zapytania,
+										klucze API przekazywane w nagłówkach lub parametrach HTTP,
 									</li>
 									<li>
-										podpisy kryptograficzne zapytań,
+										podpisy kryptograficzne żądań HTTP,
 									</li>
 									<li>
 										określony User-Agent,
@@ -204,7 +215,7 @@ $main_www =
 										ograniczenia adresów IP (whitelisty),
 									</li>
 									<li>
-										limity liczby zapytań (rate limiting).
+										limity liczby żądań (rate limiting).
 									</li>
 								</ul>
 								Brama umożliwia ręczną konfigurację nagłówków i tych wszystkich parametrów, jednak:
@@ -226,10 +237,10 @@ $main_www =
 								Ograniczenia i potencjalne problemy
 							</summary>
 							<div class="TextDiv">
-								Podczas wykonywania zapytań przez bramę mogą wystąpić m.in.:
+								Podczas wykonywania żądań HTTP przez bramę mogą wystąpić m.in.:
 								<ul>
 									<li>
-										odrzucenie zapytania przez serwer docelowy,
+										odrzucenie żądania przez serwer docelowy,
 									</li>
 									<li>
 										brak wymaganych nagłówków lub tokenów,
@@ -244,16 +255,16 @@ $main_www =
 										różnice w zachowaniu w porównaniu do przeglądarki.
 									</li>
 								</ul>
-								Dlatego, możliwe jest przeanalizowania zapytania HTTP, gdyż odpowiedź JSON podzielona jest na trzy sekcje, które zawierają:
+								Dlatego, możliwe jest przeanalizowania wyniku żądania HTTP, gdyż brama udostępnia wszystkie informacje dotyczące komunikacji HTTP. Dane JSON są podzielona na trzy sekcje:
 								<ul>
 									<li>
-										Gateway_request_settings - parametry zapytania,
+										Gateway_request_settings - parametry żądania HTTP uzstawione przez użytkownika,
 									</li>
 									<li>
-										Gateway_request_info - dane na teamt odpowidzi otrzymane z metody cURL curl_getinfo(), curl_errno(), oraz curl_error(),
+										Gateway_request_info - informacje powstałe w wyniku komunikacji HTTP. Pochodzą one z metod cURL curl_getinfo(), curl_errno(), oraz curl_error(),
 									</li>
 									<li>
-										Gateway_request_result - dane otrzymane w rezultacie zapytania HTTP
+										Gateway_request_result - wynik żądania HTTP
 									</li>
 								</ul>
 								Brama ma charakter narzędzia testowego i edukacyjnego, umożliwiającego analizę zapytań HTTP oraz ich parametrów, a nie pełnoprawnego zastępstwa przeglądarki użytkownika.
@@ -268,13 +279,13 @@ $main_www =
 						Odpowiedzialność i przeznaczenie narzędzia.
 					</div>
 					<div class="TextDiv" >
-						Niniejsza brama zapytań HTTP ma charakter edukacyjny i badawczy, oraz została stworzona wyłącznie w celach dydaktycznych. Autorzy nie ponoszą odpowiedzialności za sposób wykorzystania narzędzia przez użytkowników ani za skutki działań podejmowanych z jego użyciem. Pełna odpowiedzialność za konfigurację zapytań oraz ich rezultaty spoczywa na użytkowniku. Portal nie posiada predefiniowanych ustawień, nie narzuca sposobu działania bramy, które mogłyby zostać uznane za szkodliwe, nie gromadzi danych użytkowników, ani nie kontroluje ustawień. Wszystkie parametry zapytań są konfigurowane samodzielnie przez użytkownika. Autorzy nie zachęcają do jakiegokolwiek nielegalnego lub nieetycznego wykorzystania narzędzia. Wszelkie uwagi należy zgłaszać pod dane kontaktowe umieszczone w nagłówkach HTTP.
+						Niniejsza brama żądań HTTP ma charakter edukacyjny i badawczy, oraz została stworzona wyłącznie w celach dydaktycznych. Autorzy nie ponoszą odpowiedzialności za sposób wykorzystania narzędzia przez użytkowników, ani za skutki działań podejmowanych z jego użyciem. Pełna odpowiedzialność za konfigurację żądań HTTP, oraz ich rezultaty spoczywa na użytkowniku. Portal nie posiada predefiniowanych ustawień, nie narzuca sposobu działania bramy, które mogłyby zostać uznane za szkodliwe, nie gromadzi danych użytkowników, ani nie kontroluje ustawień. Wszystkie parametry żądań HTTP są konfigurowane samodzielnie przez użytkownika. Autorzy nie zachęcają do jakiegokolwiek nielegalnego, lub nieetycznego wykorzystania narzędzia. Wszelkie uwagi należy zgłaszać pod dane kontaktowe umieszczone w nagłówkach HTTP.
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<div class="StopkaDiv" >
+					<div class="StopkaDiv">
 						© 2026 Dariusz Bodzęta, Michał Pudzianowski — strona wykonana na zaliczenie przedmiotu <span class="PrzedmiotSpan">Wstęp do Programowania Obiektowego</span>. Prowadzący: mgr Artur Karwatka.
 					</div>
 				</td>
