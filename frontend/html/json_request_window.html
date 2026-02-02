@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="pl">
 	<head>
-		<title>Brama do odczytu danych</title>
-		
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+		<meta charset="utf-8">
+		<title>HTTP Proxy Gateway</title>
 		<meta name="subject" content="MANS - Wstęp do Programowania Obiektowego">
 		<meta name="author" content="Dariusz Bodzęta, Michał Pudzianowski, darek334@gazeta.pl">
-		<meta name="description" content="HTTP API Gateway - Brama do odczytu danych">
-		<meta name="category" content="studia, study">
+		<meta name="purpose" content="academic student project">
+		<meta name="description" content="HTTP Proxy Gateway - Internetowa usługa do odczytu danych">
 		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
 		<link rel="icon" type="image/png" href="image/mans_logo.png" >
 		
 		<link rel="stylesheet" href="css/css.css">
 		
 		<script src="js/DOM.js" ></script>
+		<script src="js/konstelacja_background.js" ></script>
 		<script>
 			
 			const Data = window.Data;
 		</script>
 	</head>
 	<body>
+		<canvas id="stars"></canvas>
+		<script>
+			runBackground();
+		</script>
 		<table class="main" >
 			<tr>
 				<th >
 					<div class="HeadDiv" >
-						<a href="https://mans.org.pl" target="_blank"><img class="mans-logo" src="image/mans_logo.png"></a>
-						<div>
-							Wstęp do Programowania Obiektowego
-							<br>
-							<br>
-							Dariusz Bodzęta, Michał Pudzianowski
+						<div class="HeadMansLogoDiv">
+							<a href="https://mans.org.pl" target="_blank"><img class="mans-logo" src="image/mans_logo.png"></a>
+						</div>
+						<div class="HeadTitleDiv" >
+							HTTP Proxy Gateway - Portal do Odczytu Danych
 						</div>
 					</div>
 				</th>
