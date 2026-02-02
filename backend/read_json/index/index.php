@@ -32,9 +32,11 @@
 		http_response_code(500 );
 		
 		header('Content-type: application/json; charset=utf-8' );
-		header('X-Autor: Dariusz Bodzeta, Michał Pudzianowski' );
+		header('X-Academic-Project: MANS - Faculty of Management and Technical Sciences' );
+		header('X-Autor: Dariusz Bodzeta, Michal Pudzianowski' );
 		header('X-Contact: darek334@gazeta.pl' );
-		header('X-Nazwa: HTTP API Gateway' );
+		header('X-Application-Name: HTTP Proxy Gateway' );
+		header('X-Application-Description: Internetowa usluga do odczytu danych' );
 
 		if(isset($_POST['Data' ] ) ){
 			
