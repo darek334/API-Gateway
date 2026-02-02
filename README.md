@@ -1,10 +1,15 @@
-# API-Gateway
+# HTTP Proxy Gateway
 
-Aplikacja typu API Gateway, wykorzystująca przeglądarki internetowe jako interfejs udostępniająca odczyt danych JSON z udostępnionych publicznie adresów URL, poprzez wysyłanie zapytań HTTP. Wykorzystująca wszystkie możliwe metody: GET, POST, nagłówki HTTP, ciasteczka, oraz zmienne cURL. Dane wysylane są do przeglądarki w formie JSON.
+Portal umożliwia skonfigurowanie żądania HTTP. Minimalnym wymogiem do wykonania żądania, jest wprowadzenie adresu URL. Użytkownik może ustawić wiele parametrów podzielonych na pięć głównych typów:
+* parametry GET,
+* parametry nagłówków HTTP Headers,
+* parametry danych POST (POST Body),
+* ciasteczka (cookies),
+* oraz ustawienia cURL wykonywane po stronie serwera.
 
 ## Charakterystyka : 
 
-Każda podstrona służąca jako brama API będzie wstępnie zabezpieczona ustawieniem Preflight :
+Każda podstrona służąca jako brama będzie wstępnie zabezpieczona ustawieniem Preflight :
 
     //Zezwolenie na komunikację tylko wtedy jeśli przeglądarka używa odnośnika pochodzącego z simplefilter.eu
     //Jeśli, zapytanie będzie pochodziło z innego źródła strony. Przegląarka zgodnie z zasadmi CORS zablokuje komunikację
@@ -18,9 +23,11 @@ Każda podstrona służąca jako brama API będzie wstępnie zabezpieczona ustaw
   
 	//zezwolenie przesłanie danych w nagłówku typu JSON
 	header('Access-Control-Allow-Headers: Content-Type' );
-    
-1. Odebranie danych JSON w nagłówku od klienta
-2. Konfiguracja zapytania cURL np:
+
+Działanie portalu można opisać w następujących punktach:
+
+1. Odebranie danych żądania przesłanych z przeglądarki klienta
+2. Konfiguracja zmiennych żądania HTTP w cURL:
 
    * // === Identyfikacja ===
    * 'CURLOPT_USERAGENT'      => CURLOPT_USERAGENT,
@@ -45,12 +52,11 @@ Każda podstrona służąca jako brama API będzie wstępnie zabezpieczona ustaw
   
 3. Konfiguracja nagłówków HTTP
     * Wszystkie możliwe nagłówki
-5. Wstawienie danych do POST
-6. Ustawenie argumentów POST
-7. Ustawienie ciasteczek
-8. Ustawienie argumentów GET
-9. Informacja odpowiedzi podzielona na 3 sekcje - trzy funkcje połączone w jedno:
+4. Konfiguracja POST
+5. Konfiguracja ciasteczek
+6. Konfiguracja argumentów GET
+7. Informacja zwrotna wyniku żądania podzielona na trzy sekcje:
 
-   9. Rzeczywista konfiguracja zapytania po obróbce przez Bramę
-   10. Informację zwrotne nagłówków odpytanego zdresu URL
-   11. Dane otrzymane z serwera ewentualnie informacja o błędzie
+   1. Rzeczywista konfiguracja żądania, będąca wynikiem walidacji ustawień po stronie serwera, zanim nastąpi żądanie HTTP
+   2. Informacje zwrotne umieszczone w nagłówku odpowiedzi po wykonaniu żądania HTTP - w celu analizy
+   3. Rzeczywisty wynik żądania - dane przesłane ze zdalengo serwera JSON itp.
