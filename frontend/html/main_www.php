@@ -122,7 +122,7 @@ $main_www =
 										odbieranie pełnej odpowiedzi serwera (nagłówki + body).
 									</li>
 								</ul>
-								cURL nie jest przeglądarką internetową – nie interpretuje HTML, nie wykonuje JavaScriptu, nie renderuje CSS i nie utrzymuje interaktywnej sesji użytkownika w sposób charakterystyczny dla przeglądarek. Jednak adalny serwer otrzymujący żądanie HTTP musi odpowiedzieć tak jakby była to standardowa komunikacja użytkownika za pomocą przeglądarki internetowej. Na dzień dzisiajszy dane umieszczane są w formacie JSON.
+								cURL nie jest przeglądarką internetową – nie interpretuje HTML, nie wykonuje JavaScriptu, nie renderuje CSS i nie utrzymuje interaktywnej sesji użytkownika w sposób charakterystyczny dla przeglądarek. Jednak zadalny serwer otrzymujący żądanie HTTP, musi odpowiedzieć tak jakby była to standardowa komunikacja użytkownika za pomocą przeglądarki internetowej. Na chwilę obecną dane umieszczane są w formacie JSON. Dane niezgodne z prośbą negocjacyjną bramy Accept: application/json, mogą zostać nieudostępnione przez zdalny serwer HTTP.
 							</div>
 						</details>
 						<details class="TextDetails">
