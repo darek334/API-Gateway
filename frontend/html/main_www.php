@@ -76,7 +76,7 @@ $main_www =
 								Opis działania i konfiguracji strony
 							</summary>
 							<div class="TextDiv">
-								Strona umożliwia skonfigurowanie żądania HTTP. Minimalnym wymogiem do wykonania żądania, jest wprowadzenie adresu URL w polu „Adres URL”. Użytkownik może ustawić wiele parametrów. W polu „Typ” można wybrać pięć głównych typów konfiguracji żądania HTTP:
+								Strona umożliwia skonfigurowanie żądania HTTP. Minimalnym ustawieniem, jest wprowadzenie adresu URL w polu „Adres URL”. Użytkownik może ustawić wiele parametrów. W polu „Typ” można wybrać pięć głównych typów konfiguracji żądania HTTP:
 								<ul>
 									<li>
 										parametry GET,
