@@ -258,9 +258,9 @@ final class CurlInterface
 	}
 	
 	/**/
-	public function mergeGET(array $DATA ): void{
+	public function mergeGET(array $GET ): void{
 		
-		$this->GET = $DATA + $this->GET;
+		$this->GET = $GET + $this->GET;
 	}
 
 	/**/
@@ -287,9 +287,9 @@ final class CurlInterface
 	}
 
 	/**/
-	public function mergeCURLOption(array $DATA_KEY ): void{
+	public function mergeCURLOption(array $CURL_OPTION ): void{
 		
-		$this->CURL_OPTION = $DATA_KEY + $this->CURL_OPTION;
+		$this->CURL_OPTION = $CURL_OPTION + $this->CURL_OPTION;
 	}
 	
 	/**/
@@ -357,9 +357,9 @@ final class CurlInterface
 	}
 
 	/**/
-	public function mergeHttpHeader(array $DATA_KEY ): void{
+	public function mergeHttpHeader(array $HTTP_HEADER ): void{
 		
-		$this->HTTP_HEADER = $DATA_KEY + $this->HTTP_HEADER;
+		$this->HTTP_HEADER = $HTTP_HEADER + $this->HTTP_HEADER;
 	}
 	
 	/**/
@@ -399,7 +399,7 @@ final class CurlInterface
 	}
 
 	/**/
-	public function mergePostBody(array $DATA_KEY ): void{
+	public function mergePostBody(array $POST_BODY ): void{
 		
 		$this->POST_BODY = $POST_BODY + $this->POST_BODY;
 	}
@@ -434,9 +434,9 @@ final class CurlInterface
 	}
 
 	/**/
-	public function mergeCOOKIE(array $DATA_KEY ): void{
+	public function mergeCOOKIE(array $COOKIES ): void{
 		
-		$this->COOKIES = $DATA_KEY + $this->COOKIES;
+		$this->COOKIES = $COOKIES + $this->COOKIES;
 	}
 	
 	/**/
