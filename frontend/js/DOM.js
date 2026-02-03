@@ -28,7 +28,7 @@ class DOM{
 	
 	static OptionTypes = {
 		
-		List : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+		List : ['GET', 'HEADER', 'POST_B', 'COOKIE', 'CURL_O' ],
 		
 		GET : {
 			
@@ -86,7 +86,7 @@ class DOM{
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+								ChildList : ['GET', 'HEADER', 'POST_B', 'COOKIE', 'CURL_O' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
 								name : 'GET',
 								value : 'GET',
@@ -102,41 +102,41 @@ class DOM{
 									value : 'GET',
 									textContent : 'GET'
 								},
-								CURL_OPTION : {
+								CURL_O : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURL_OPTION',
-									value : 'CURL_OPTION',
-									textContent : 'CURL_OPTION'
+									name : 'CURL_O',
+									value : 'CURL_O',
+									textContent : 'CURL_O'
 								},
-								CURLOPT_HTTPHEADER : {
+								HEADER : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_HTTPHEADER',
-									value : 'CURLOPT_HTTPHEADER',
-									textContent : 'CURLOPT_HTTPHEADER'
+									name : 'HEADER',
+									value : 'HEADER',
+									textContent : 'HEADER'
 								},
-								CURLOPT_POSTFIELDS : {
+								POST_B : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_POSTFIELDS',
-									value : 'CURLOPT_POSTFIELDS',
-									textContent : 'CURLOPT_POSTFIELDS'
+									name : 'POST_B',
+									value : 'POST_B',
+									textContent : 'POST_B'
 								},
-								CURLOPT_COOKIE : {
+								COOKIE : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_COOKIE',
-									value : 'CURLOPT_COOKIE',
-									textContent : 'CURLOPT_COOKIE'
+									name : 'COOKIE',
+									value : 'COOKIE',
+									textContent : 'COOKIE'
 								},
 								Action : {
 									
@@ -319,12 +319,12 @@ class DOM{
 				}
 			}
 		},
-		CURL_OPTION : {
+		CURL_O : {
 			
 			RowPropertyList : ['OptionType', 'Name', 'Value' ],
 			OptionType : {
 				
-				DefaultDOM : 'CURL_OPTION'
+				DefaultDOM : 'CURL_O'
 			},
 			Name : {
 				
@@ -335,9 +335,9 @@ class DOM{
 						
 						'CURLOPT_URL',
 						'CURLOPT_POST',
-						'CURLOPT_HTTPHEADER',
-						'CURLOPT_POSTFIELDS',
-						'CURLOPT_COOKIE'
+						'HEADER',
+						'POST_B',
+						'COOKIE'
 					]
 				}
 			},
@@ -370,7 +370,7 @@ class DOM{
 							
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'CURL_OPTION' ],
+							ChildList : ['Span', 'CURL_O' ],
 							PropertyList : ['classList' ],
 							classList : ['OptionLabel' ],
 							
@@ -382,14 +382,14 @@ class DOM{
 								textContent : 'Typ:',
 								classList : ['SpanLabel' ]
 							},
-							CURL_OPTION : {
+							CURL_O : {
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+								ChildList : ['GET', 'HEADER', 'POST_B', 'COOKIE', 'CURL_O' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
-								name : 'CURL_OPTION',
-								value : 'CURL_OPTION',
+								name : 'CURL_O',
+								value : 'CURL_O',
 								title : 'Wybierz typ opcji',
 								classList : ['OptionTypeName' ],
 
@@ -402,41 +402,41 @@ class DOM{
 									value : 'GET',
 									textContent : 'GET'
 								},
-								CURL_OPTION : {
+								CURL_O : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURL_OPTION',
-									value : 'CURL_OPTION',
-									textContent : 'CURL_OPTION'
+									name : 'CURL_O',
+									value : 'CURL_O',
+									textContent : 'CURL_O'
 								},
-								CURLOPT_HTTPHEADER : {
+								HEADER : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_HTTPHEADER',
-									value : 'CURLOPT_HTTPHEADER',
-									textContent : 'CURLOPT_HTTPHEADER'
+									name : 'HEADER',
+									value : 'HEADER',
+									textContent : 'HEADER'
 								},
-								CURLOPT_POSTFIELDS : {
+								POST_B : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_POSTFIELDS',
-									value : 'CURLOPT_POSTFIELDS',
-									textContent : 'CURLOPT_POSTFIELDS'
+									name : 'POST_B',
+									value : 'POST_B',
+									textContent : 'POST_B'
 								},
-								CURLOPT_COOKIE : {
+								COOKIE : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_COOKIE',
-									value : 'CURLOPT_COOKIE',
-									textContent : 'CURLOPT_COOKIE'
+									name : 'COOKIE',
+									value : 'COOKIE',
+									textContent : 'COOKIE'
 								},
 								Action : {
 									
@@ -618,12 +618,12 @@ class DOM{
 				}
 			}
 		},
-		CURLOPT_HTTPHEADER : {
+		HEADER : {
 			
 			RowPropertyList : ['OptionType', 'Name', 'Value' ],
 			OptionType : {
 				
-				DefaultDOM : 'CURLOPT_HTTPHEADER'
+				DefaultDOM : 'HEADER'
 			},
 			Name : {
 				
@@ -658,7 +658,7 @@ class DOM{
 							
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'CURLOPT_HTTPHEADER' ],
+							ChildList : ['Span', 'HEADER' ],
 							PropertyList : ['classList' ],
 							classList : ['OptionLabel' ],
 							
@@ -670,14 +670,14 @@ class DOM{
 								textContent : 'Typ:',
 								classList : ['SpanLabel' ]
 							},
-							CURLOPT_HTTPHEADER : {
+							HEADER : {
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+								ChildList : ['GET', 'HEADER', 'POST_B', 'COOKIE', 'CURL_O' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
-								name : 'CURLOPT_HTTPHEADER',
-								value : 'CURLOPT_HTTPHEADER',
+								name : 'HEADER',
+								value : 'HEADER',
 								title : 'Wybierz typ opcji',
 								classList : ['OptionTypeName' ],
 
@@ -690,41 +690,41 @@ class DOM{
 									value : 'GET',
 									textContent : 'GET'
 								},
-								CURL_OPTION : {
+								CURL_O : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURL_OPTION',
-									value : 'CURL_OPTION',
-									textContent : 'CURL_OPTION'
+									name : 'CURL_O',
+									value : 'CURL_O',
+									textContent : 'CURL_O'
 								},
-								CURLOPT_HTTPHEADER : {
+								HEADER : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_HTTPHEADER',
-									value : 'CURLOPT_HTTPHEADER',
-									textContent : 'CURLOPT_HTTPHEADER'
+									name : 'HEADER',
+									value : 'HEADER',
+									textContent : 'HEADER'
 								},
-								CURLOPT_POSTFIELDS : {
+								POST_B : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_POSTFIELDS',
-									value : 'CURLOPT_POSTFIELDS',
-									textContent : 'CURLOPT_POSTFIELDS'
+									name : 'POST_B',
+									value : 'POST_B',
+									textContent : 'POST_B'
 								},
-								CURLOPT_COOKIE : {
+								COOKIE : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_COOKIE',
-									value : 'CURLOPT_COOKIE',
-									textContent : 'CURLOPT_COOKIE'
+									name : 'COOKIE',
+									value : 'COOKIE',
+									textContent : 'COOKIE'
 								},
 								Action : {
 									
@@ -800,7 +800,7 @@ class DOM{
 								size : 20,
 								required : true,
 								classList : ['NameOption' ],
-								title : 'Nazwa klucza w tablicy opcji cURL - CURLOPT_HTTPHEADER',
+								title : 'Nazwa klucza w tablicy opcji cURL - HEADER',
 								Action : {
 									
 									List : ['blur' ],
@@ -848,7 +848,7 @@ class DOM{
 								rows : '1',
 								required : true,
 								classList : ['ValueOption' ],
-								title : 'Wartość klucza w tablicy opcji cURL - CURLOPT_HTTPHEADER',
+								title : 'Wartość klucza w tablicy opcji cURL - HEADER',
 								Action : {
 				
 									List : ['blur' ],
@@ -906,12 +906,12 @@ class DOM{
 				}
 			}
 		},
-		CURLOPT_POSTFIELDS : {
+		POST_B : {
 			
 			RowPropertyList : ['OptionType', 'Name', 'Value' ],
 			OptionType : {
 				
-				DefaultDOM : 'CURLOPT_POSTFIELDS'
+				DefaultDOM : 'POST_B'
 			},
 			Name : {
 				
@@ -946,7 +946,7 @@ class DOM{
 							
 							Type : 'container',
 							TagName : 'label',
-							ChildList : ['Span', 'CURLOPT_POSTFIELDS' ],
+							ChildList : ['Span', 'POST_B' ],
 							PropertyList : ['classList' ],
 							classList : ['OptionLabel' ],
 							
@@ -958,14 +958,14 @@ class DOM{
 								textContent : 'Typ:',
 								classList : ['SpanLabel' ]
 							},
-							CURLOPT_POSTFIELDS : {
+							POST_B : {
 									
 								Type : 'container',
 								TagName : 'select',
-								ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+								ChildList : ['GET', 'HEADER', 'POST_B', 'COOKIE', 'CURL_O' ],
 								PropertyList : ['name', 'value', 'title', 'classList' ],
-								name : 'CURLOPT_POSTFIELDS',
-								value : 'CURLOPT_POSTFIELDS',
+								name : 'POST_B',
+								value : 'POST_B',
 								title : 'Wybierz typ opcji',
 								classList : ['OptionTypeName' ],
 
@@ -978,41 +978,41 @@ class DOM{
 									value : 'GET',
 									textContent : 'GET'
 								},
-								CURL_OPTION : {
+								CURL_O : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURL_OPTION',
-									value : 'CURL_OPTION',
-									textContent : 'CURL_OPTION'
+									name : 'CURL_O',
+									value : 'CURL_O',
+									textContent : 'CURL_O'
 								},
-								CURLOPT_HTTPHEADER : {
+								HEADER : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_HTTPHEADER',
-									value : 'CURLOPT_HTTPHEADER',
-									textContent : 'CURLOPT_HTTPHEADER'
+									name : 'HEADER',
+									value : 'HEADER',
+									textContent : 'HEADER'
 								},
-								CURLOPT_POSTFIELDS : {
+								POST_B : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_POSTFIELDS',
-									value : 'CURLOPT_POSTFIELDS',
-									textContent : 'CURLOPT_POSTFIELDS'
+									name : 'POST_B',
+									value : 'POST_B',
+									textContent : 'POST_B'
 								},
-								CURLOPT_COOKIE : {
+								COOKIE : {
 									
 									Type : 'element',
 									TagName : 'option',
 									PropertyList : ['name', 'value', 'textContent' ],
-									name : 'CURLOPT_COOKIE',
-									value : 'CURLOPT_COOKIE',
-									textContent : 'CURLOPT_COOKIE'
+									name : 'COOKIE',
+									value : 'COOKIE',
+									textContent : 'COOKIE'
 								},
 								Action : {
 									
@@ -1088,7 +1088,7 @@ class DOM{
 								size : 20,
 								required : true,
 								classList : ['NameOption' ],
-								title : 'Nazwa klucza w tablicy BODY - CURLOPT_POSTFIELDS. Format wysłania BODY zależy od wartości klucza Content-Type w CURLOPT_HTTPHEADER',
+								title : 'Nazwa klucza w tablicy BODY - POST_B. Format wysłania BODY zależy od wartości klucza Content-Type w HEADER',
 								Action : {
 									
 									List : ['blur' ],
@@ -1136,7 +1136,7 @@ class DOM{
 								rows : '1',
 								required : true,
 								classList : ['ValueOption' ],
-								title : 'Wartość klucza w tablicy BODY - CURLOPT_POSTFIELDS',
+								title : 'Wartość klucza w tablicy BODY - POST_B',
 								Action : {
 				
 									List : ['blur' ],
@@ -1194,12 +1194,12 @@ class DOM{
 				}
 			}
 		},		
-		CURLOPT_COOKIE : {
+		COOKIE : {
 			
 			RowPropertyList : ['OptionType', 'Name', 'Value', 'Path', 'Expires', 'Domain', 'Secure', 'HttpOnly', 'SameSite' ],
 			OptionType : {
 				
-				DefaultDOM : 'CURLOPT_COOKIE'
+				DefaultDOM : 'COOKIE'
 			},
 			Name : {
 				
@@ -1266,7 +1266,7 @@ class DOM{
 						
 								Type : 'container',
 								TagName : 'label',
-								ChildList : ['Span', 'CURLOPT_COOKIE' ],
+								ChildList : ['Span', 'COOKIE' ],
 								PropertyList : ['classList' ],
 								classList : ['OptionLabel' ],
 								
@@ -1278,14 +1278,14 @@ class DOM{
 									textContent : 'Typ:',
 									classList : ['SpanLabel' ]
 								},
-								CURLOPT_COOKIE : {
+								COOKIE : {
 									
 									Type : 'container',
 									TagName : 'select',
-									ChildList : ['GET', 'CURLOPT_HTTPHEADER', 'CURLOPT_POSTFIELDS', 'CURLOPT_COOKIE', 'CURL_OPTION' ],
+									ChildList : ['GET', 'HEADER', 'POST_B', 'COOKIE', 'CURL_O' ],
 									PropertyList : ['name', 'value', 'title', 'classList' ],
-									name : 'CURLOPT_COOKIE',
-									value : 'CURLOPT_COOKIE',
+									name : 'COOKIE',
+									value : 'COOKIE',
 									title : 'Wybierz typ opcji',
 									classList : ['OptionTypeName' ],
 
@@ -1298,41 +1298,41 @@ class DOM{
 										value : 'GET',
 										textContent : 'GET'
 									},
-									CURL_OPTION : {
+									CURL_O : {
 										
 										Type : 'element',
 										TagName : 'option',
 										PropertyList : ['name', 'value', 'textContent' ],
-										name : 'CURL_OPTION',
-										value : 'CURL_OPTION',
-										textContent : 'CURL_OPTION'
+										name : 'CURL_O',
+										value : 'CURL_O',
+										textContent : 'CURL_O'
 									},
-									CURLOPT_HTTPHEADER : {
+									HEADER : {
 										
 										Type : 'element',
 										TagName : 'option',
 										PropertyList : ['name', 'value', 'textContent' ],
-										name : 'CURLOPT_HTTPHEADER',
-										value : 'CURLOPT_HTTPHEADER',
-										textContent : 'CURLOPT_HTTPHEADER'
+										name : 'HEADER',
+										value : 'HEADER',
+										textContent : 'HEADER'
 									},
-									CURLOPT_POSTFIELDS : {
+									POST_B : {
 										
 										Type : 'element',
 										TagName : 'option',
 										PropertyList : ['name', 'value', 'textContent' ],
-										name : 'CURLOPT_POSTFIELDS',
-										value : 'CURLOPT_POSTFIELDS',
-										textContent : 'CURLOPT_POSTFIELDS'
+										name : 'POST_B',
+										value : 'POST_B',
+										textContent : 'POST_B'
 									},
-									CURLOPT_COOKIE : {
+									COOKIE : {
 										
 										Type : 'element',
 										TagName : 'option',
 										PropertyList : ['name', 'value', 'textContent' ],
-										name : 'CURLOPT_COOKIE',
-										value : 'CURLOPT_COOKIE',
-										textContent : 'CURLOPT_COOKIE'
+										name : 'COOKIE',
+										value : 'COOKIE',
+										textContent : 'COOKIE'
 									},
 									Action : {
 										
@@ -2029,7 +2029,7 @@ class DOM{
 	static RegExpStartsWithDigit = /^\d/;
 	static RegExpCookieExpires = /^\d+$/;
 	static RegExpCookiePath = /^\/\w*/;
-	static RegExpForbiddenCURLNames = new RegExp('^('+DOM.OptionTypes.CURL_OPTION.Name.ForbiddenNames.List.join('|')+ ')$', 'i' );
+	static RegExpForbiddenCURLNames = new RegExp('^('+DOM.OptionTypes.CURL_O.Name.ForbiddenNames.List.join('|')+ ')$', 'i' );
 	
 	static asyncAlert(TEXT, ALERT = true, RETURN = true ){
 		
@@ -2483,7 +2483,7 @@ class DOM{
 			
 			input = document.createElement('select' );
 			input.id = 'ReadMethodsInput';
-			input.title = 'Metoda odczytu. Metoda GET będzie zignorowana w przypadku konfiguracji typu opcji CURLOPT_POSTFIELDS';
+			input.title = 'Metoda odczytu. Metoda GET będzie zignorowana w przypadku konfiguracji typu opcji POST_B';
 
 			DOM.ReadMethods.List.forEach((element, index ) => {
 				
