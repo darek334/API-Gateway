@@ -84,8 +84,6 @@
 					}
 				}
 			}
-			
-			$wrapper->mergeCURLOption(CurlInterface::CURL_OPTION_USERAGENT );
 
 			$wrapper->runQuery();
 			
