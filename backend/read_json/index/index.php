@@ -37,15 +37,21 @@
 		header('X-Contact: darek334@gazeta.pl' );
 		header('X-Application-Name: HTTP Proxy Gateway' );
 		header('X-Application-Description: Internetowa usluga do odczytu danych' );
-
+		
+		
+		//odczytujemy dane ze zminnej POST od użytkownika
 		if(isset($_POST['Data' ] ) ){
 			
+			//dekodujemy te dane
 			$_POST['Data' ] = json_decode($_POST['Data' ], true );
 			
+			//importujemy naszą klasę
 			require __DIR__ .'/../class/CurlInterface.php';
-		
+			
+			//tworzymy obiekt
 			$wrapper = new CurlInterface($_POST['Data' ]['Url' ] );
 			
+			//przetwarzamy dane za pomocą naszego obiektu
 			if(isset($_POST['Data' ]['Body' ] ) ){
 			
 				if(isset($_POST['Data' ]['Body' ]['GET' ] ) ){
@@ -55,40 +61,43 @@
 						$wrapper->setGET($name, $get_data['Value' ] );
 					}
 				}
-				if(isset($_POST['Data' ]['Body' ]['CURL_OPTION' ] ) ){
+				if(isset($_POST['Data' ]['Body' ]['CURL_O' ] ) ){
 					
-					foreach($_POST['Data' ]['Body' ]['CURL_OPTION' ] as $name => $get_data ){
+					foreach($_POST['Data' ]['Body' ]['CURL_O' ] as $name => $get_data ){
 					
 						$wrapper->setCURLOption($name, $get_data['Value' ] );
 					}
 				}
-				if(isset($_POST['Data' ]['Body' ]['CURLOPT_HTTPHEADER' ] ) ){
+				if(isset($_POST['Data' ]['Body' ]['HEADER' ] ) ){
 					
-					foreach($_POST['Data' ]['Body' ]['CURLOPT_HTTPHEADER' ] as $name => $get_data ){
+					foreach($_POST['Data' ]['Body' ]['HEADER' ] as $name => $get_data ){
 					
 						$wrapper->setHttpHeader($name, $get_data['Value' ] );
 					}
 				}
-				if(isset($_POST['Data' ]['Body' ]['CURLOPT_POSTFIELDS' ] ) ){
+				if(isset($_POST['Data' ]['Body' ]['POST_B' ] ) ){
 					
-					foreach($_POST['Data' ]['CURLOPT_POSTFIELDS' ] as $name => $get_data ){
+					foreach($_POST['Data' ]['POST_B' ] as $name => $get_data ){
 					
 						$wrapper->setPostBody($name, $get_data['Value' ] );
 					}
 				}
-				if(isset($_POST['Data' ]['Body' ]['CURLOPT_COOKIE' ] ) ){
+				if(isset($_POST['Data' ]['Body' ]['COOKIE' ] ) ){
 					
-					foreach($_POST['Data' ]['Body' ]['CURLOPT_COOKIE' ] as $name => $data ){
+					foreach($_POST['Data' ]['Body' ]['COOKIE' ] as $name => $data ){
 					
 						$wrapper->setCOOKIE($name, $data );
 					}
 				}
 			}
-
+			
+			//uruchamiamy główną funkcję naszego obiektu, który już wykonuje żądanie HTTP
 			$wrapper->runQuery();
 			
+			//usatawiamy nagłówek w przypadku powoidzenia
 			http_response_code(200 );
-
+			
+			//nastęnie formatujemy otrzymane dane w nasze trzy sekcje
 			echo json_encode([
 				
 				'Gateway_request_settings'  => $wrapper->prepareRequest(),
