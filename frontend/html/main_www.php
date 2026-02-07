@@ -94,6 +94,9 @@ $main_www =
 										oraz ustawienia modułu cURL wykonywane po stronie serwera.
 									</li>
 								</ul>
+								<div class="TextDiv">
+									<a class="Text" href="https://github.com/darek334/API-Gateway" target="_blank">Repozytorium implementacji – HTTP Proxy Gateway</a>
+								</div>
 							</div>
 						</details>
 						<details class="TextDetails">
